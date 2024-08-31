@@ -1,5 +1,4 @@
-# PI-GaPhI
-PI-GaPhI: Gait-cycle Phases Identification from Pressure Insoles (INDIP)
+# PI-GaPhI: Gait-cycle Phases Identification from Pressure Insoles (INDIP)
 
 <p align="center">
 <img  src="https://github.com/NicolasLeo-hub/PI-GAPhi/blob/main/detection_example.jpg" width="2000"/>
