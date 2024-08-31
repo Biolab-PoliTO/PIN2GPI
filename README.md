@@ -20,7 +20,7 @@ Although the use of force platforms and instrumented walkways is direct well-est
 The following files are provided within the GitHub repository:
 - PI-GaPhI: Main function that guides you through all the main steps of Gait Cycle Phases detection;
 - openINDIP.m: Function that imports an INDIP text file (".txt") into a MATLAB matrix;
-- INDIP#098_28-05-2024_132036.txt: INDIP .txt file containing representative data acquired from pressure insole and other sensors of a healthy subject during locomotion.
+- INDIP#098_28-05-2024_132036.txt: INDIP .txt file containing representative data acquired from pressure insoles and other sensors on a healthy subject during locomotion.
 - HFPTSdetect: Function containing detection of gait cycle phases from clustering of pressure insoles channels according to anatomic regions of foot. It consists of:
   1. Individuate Activation Windows (AW) of each PI channel: first define AW according to the noise amplitude of PI signals and then make AW control based on Neighborhood. In order to prevent possible activation spikes due to acquisition error, a channel is considered "active" if almost three channels of its neighborhood are 'active'.
   2. Individuate AW of each PI cluster: define four clusters according to four different anatomic points of foot (in order Heel, 5th metatarsal head, 1st metatarsal head and Thumb). A cluster is considered 'active' when almost one of its channels is active.
