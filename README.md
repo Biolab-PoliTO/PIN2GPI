@@ -20,7 +20,7 @@ The following files are provided within the GitHub repository:
 - PI2GPI: Main function that guides you through all the main steps of Gait Phases detection;
 - data.mat: .mat file containing representative data acquired from pressure insoles and other sensors on a healthy adult during locomotion.
 - HFPS_extraction: Function containing detection of gait phases from clustering of pressure insoles channels according to anatomic regions of foot. It consists of:</p>
-  a. Three clusters individuation: organize the sixteen channels of PI into three clusters according to four different anatomic points of foot: Heel (blue), 5th metatarsal head (green), 1st metatrsal head (red). </p>
+  a. Three clusters individuation: organize the sixteen channels of PI into three clusters according to three different anatomic points of foot: Heel (blue), 5th metatarsal head (green), 1st metatarsal head (red). </p>
 <img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="75"/> </p>
   b. Individuate Activation Windows (AW) of each cluster. Signals within the same cluster were summed and smoothed and their first derivative was calculated. The resulting signal underwent an additional smoothing filter. 
 For each cluster, the activation start times (maxima) and end times (subsequent minima) were identified using the MATLAB® function findpeaks, by setting these parameters minProminence = 0.15; minPeakHeight = 0.06; minPeakDistance = 20. The choice of these values helped 
