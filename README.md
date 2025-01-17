@@ -35,7 +35,10 @@ For each cluster, the activation start times (maxima) and end times (subsequent 
 
 
 ## How to prepare your data
-INDIP data must be in .data format to fit the analysis framework. Data must be a standardized structure, as in [2]. 
+INDIP data must be in .mat format to fit the analysis framework. Data example was extracted from the open database made available by the Mobilise-D consortium [1].  What you need (see also data.mat file) is a structure containing Pressure insole data, organized in two fields: </p> 
+- LeftFoot: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from left side </p>;
+- RighFoot: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from right side </p>.
+If you had a number of acquired channels or a different disposition, you should modify the organization  of the channels in the three cluster (point a.) in the function HFPS_extraction.
 
 
 ## How to contribute to ```PI2GPI```
