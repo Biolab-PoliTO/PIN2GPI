@@ -20,25 +20,26 @@ The following files are provided within the GitHub repository:
 - PI2GPI: Main function that guides you through all the main steps of Gait Phases detection;
 - data.mat: .mat file containing representative data acquired from pressure insoles and other sensors on a healthy adult during locomotion.
 - HFPS_extraction: Function containing detection of gait phases from clustering of pressure insoles channels according to anatomic regions of foot. It consists of:</p>
-  a. Three clusters individuation: organize the sixteen channels of PI into three clusters according to three different anatomic points of foot: Heel (blue), 5th metatarsal head (green), 1st metatarsal head (red). </p>
+  a. Three clusters individuation and pre-processing: organize the sixteen channels of PIs into three clusters according to three different anatomic points on the foot: Heel (blue), 5th metatarsal head (green), 1st metatarsal head (red). </p>
 <img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="75"/> </p>
-  b. Individuate Activation Windows (AW) of each cluster. Signals within the same cluster were summed and smoothed and their first derivative was calculated. The resulting signal underwent an additional smoothing filter. 
-For each cluster, the activation start times (maxima) and end times (subsequent minima) were identified using the MATLAB® function findpeaks, by setting these parameters minProminence = 0.15; minPeakHeight = 0.06; minPeakDistance = 20. The choice of these values helped 
-  filter out peaks that are significant compared to the overall signal (minProminence), allowed to ignore peaks with very low amplitude values (minPeakHeight) and prevented the detection of local fluctuations (minPeakDistance).  In cases where two consecutive minima occurred within a 500 ms interval, the second minimum was selected as the deactivation point. </p>
-  c. Identify gait phases: define correspondence between the combination of 'active' or 'not active' clusters and a specific gait phase; </p>
+Sum the signals within each cluster, smooth them and calculate their first derivative. The resulting signals undergo an additional smoothing filter. 
+  b. Identification of Activation Windows (AW) for each cluster between max and min peaks. 
+For each cluster signal, the activation start times (maxima) and end times (subsequent minima) are identified using the MATLAB® function findpeaks, by setting these parameters:  minProminence = 0.15; minPeakHeight = 0.06; minPeakDistance = 20. The choice of these values allows to filter out peaks that are significant compared to the overall signal (minProminence), to ignore peaks with very low amplitude values (minPeakHeight) and to prevent the detection of local fluctuations (minPeakDistance).  In cases where two consecutive minima occur within a 500 ms interval, the second minimum is selected as the deactivation point. </p>
+  c. Identify gait phases: define the correspondence between the combination of 'active' or 'not active' clusters and  specific gait phases; </p>
       (1)	'H' = 'Heel Contact':  only the heel cluster is active;</p>
       (2)	'F' = 'Flat Foot Contact': the heel cluster is active, and at least one cluster under the forefoot is also active;</p>
       (3)	'P' = 'Propulsion': the heel cluster is inactive, while at least one forefoot cluster remains active;</p>
       (4) 'S' = 'Swing': all clusters are inactive</p>
-  d. Post-processing: anti-bouncing filter was applicated to remove short and spurious phases shorter or equal to 50 ms surrounded by the same phase before and after. </p>
-  e. Save results: prompt the user to choose the output format 'csv' or 'txt' and the signal in 4 numeric levels ('levels') or phase labels ('phase')
+  d. Post-processing: an anti-bouncing filter is applied to remove short and spurious phases (≤ 50 ms) that are surrounded by the same phase both before and after. </p>
+  e. Save results: the user is prompted to choose the output format ('csv' or 'txt') and the signal representation, either in 4 numeric levels ('levels') or phase labels ('phase').
 
 
 ## How to prepare your data
 INDIP data must be in .mat format to fit the analysis framework. Data example was extracted from the open database made available by the Mobilise-D consortium [1].  What you need (see also data.mat file) is a structure containing Pressure insole data, organized in two fields: </p> 
 - LeftFoot: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from left side </p>;
 - RighFoot: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from right side </p>.
-If you had a number of acquired channels or a different disposition, you should modify the organization  of the channels in the three cluster (point a.) in the function HFPS_extraction.
+If your data contains a different number of channels or follows a different channels distribution, you should modify the cluster organization (as described in point a) within the HFPS_extraction function to match your specific dataset.
+If you had a number of acquired channels or a different disposition, you should modify the cluster organization (as described in point a) within the HFPS_extraction function to match your specific dataset.
 
 
 ## How to contribute to ```PI2GPI```
@@ -57,7 +58,7 @@ This algorithm is provided as-is, and unfortunately, there are no guarantees tha
 
 ## Reference
 [1] A. Küderle, “Mobilise-D Technical Validation Study (TVS) dataset [Data set],” Zenodo. [Online]. Available: http://doi.org/10.5281/zenodo.13899385
-[2] L. Palmerini et al., “Mobility recorded by wearable devices and gold standards: the Mobilise-D procedure for data standardization,” Sci Data, vol. 10, no. 1, Dec. 2023, doi: 10.1038/s41597-023-01930-9.
+
 
 ## Contact
 Nicolas Leo, Fellow Research
