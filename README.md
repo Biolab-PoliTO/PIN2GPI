@@ -36,8 +36,8 @@ For each cluster signal, the activation start times (maxima) and end times (subs
 
 ## How to prepare your data
 INDIP data must be in .mat format to fit the analysis framework. Data example was extracted from the open database made available by the Mobilise-D consortium [1].  What you need (see also data.mat file) is a structure containing normalized pressure insole data in the range [0 1], organized in two fields: </p> 
-- LeftFoot.NormalizedPressure: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from left side </p>;
-- RighFoot.NormalizedPressure: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from right side </p>.
+- LeftFoot.NormalizedPressure: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from left side;</p>
+- RighFoot.NormalizedPressure: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from right side. </p>
 If your data contains a different number of channels or follows a different channels distribution, you should modify the cluster organization (as described in point a) within the HFPS_extraction function to match your specific dataset.
 
 
