@@ -21,13 +21,13 @@ The following files are provided within the GitHub repository:
 - data.mat: .mat file containing representative data acquired from pressure insoles and other sensors on a healthy adult during locomotion.
 - HFPS_extraction: Function containing detection of gait phases from clustering of pressure insoles channels according to anatomic regions of foot. It consists of:</p>
 </p>
-  a. Three clusters individuation and pre-processing: organize the sixteen channels of PIs into three clusters according to three different anatomic points on the foot: Heel (blue), 5th metatarsal head (green), 1st metatarsal head (red). </p>
+  a. Three clusters selection: organize the sixteen channels of PIs into three clusters according to three different anatomic points on the foot: Heel (blue), 5th metatarsal head (green), 1st metatarsal head (red). </p>
 <img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="75"/> </p>
-Sum the signals within each cluster, smooth them and calculate their first derivative. The resulting signals undergo an additional smoothing filter. </p>
-  b. Identification of Activation Windows (AW) for each cluster between max and min peaks. 
-For each cluster signal, the activation start times (maxima) and end times (subsequent minima) are identified using the MATLAB® function findpeaks, by setting these parameters:  minProminence = 0.15; minPeakHeight = 0.06; minPeakDistance = 20. The choice of these values allows to filter out peaks that are significant compared to the overall signal (minProminence), to ignore peaks with very low amplitude values (minPeakHeight) and to prevent the detection of local fluctuations (minPeakDistance).  In cases where two consecutive minima occur within a 500 ms interval, the second minimum is selected as the deactivation point. </p>
-  c. Identify gait phases: define the correspondence between the combination of 'active' or 'not active' clusters and  specific gait phases; </p>
-      (1)	'H' = 'Heel Contact':  only the heel cluster is active;</p>
+If your data contains a different number of channels or follows a different channels distribution, you should modify the cluster organization within the HFPS_extraction function to match your specific dataset. </p>
+  b. Pre-processing and Activation Windows detection for each cluster between max and min peaks
+Sum the signals within each cluster, smooth them and calculate their first derivative. The resulting signals undergo an additional smoothing filter. For each cluster signal, the activation start times (maxima) and end times (subsequent minima) are identified using the MATLAB® function findpeaks, by setting these parameters:  minProminence = 0.15; minPeakHeight = 0.06; minPeakDistance = 20. The choice of these values allows to filter out peaks that are significant compared to the overall signal (minProminence), to ignore peaks with very low amplitude values (minPeakHeight) and to prevent the detection of local fluctuations (minPeakDistance).  In cases where two consecutive minima occur within a 500 ms interval, the second minimum is selected as the deactivation point. </p>
+  c. Gait Phases Identification (GPI): define the correspondence between the combination of 'active' or 'not active' clusters and  specific gait phases; </p>
+      (1)	'H' = 'Heel Contact': only the heel cluster is active;</p>
       (2)	'F' = 'Flat Foot Contact': the heel cluster is active, and at least one cluster under the forefoot is also active;</p>
       (3)	'P' = 'Propulsion': the heel cluster is inactive, while at least one forefoot cluster remains active;</p>
       (4) 'S' = 'Swing': all clusters are inactive</p>
@@ -39,7 +39,7 @@ For each cluster signal, the activation start times (maxima) and end times (subs
 INDIP data must be in .mat format to fit the analysis framework. Data example was extracted from the open database made available by the Mobilise-D consortium [1].  What you need (see also data.mat file) is a structure containing normalized pressure insole data in the range [0 1], organized in two fields: </p> 
 - LeftFoot.NormalizedPressure: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from left side;</p>
 - RighFoot.NormalizedPressure: N-by-M matrix, where N represents the time-samples and N represents the number of channels acquired from right side. </p>
-If your data contains a different number of channels or follows a different channels distribution, you should modify the cluster organization (as described in point a) within the HFPS_extraction function to match your specific dataset.
+
 
 
 ## How to contribute to ```PI2GPI```
