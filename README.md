@@ -29,7 +29,7 @@ The following files are provided within the GitHub repository:
 </p>   
   b. Individuate AW of each cluster: 
   c. Identify gait phases: define correspondence between the combination of 'active' or 'not active' clusters and a specific gait phase; </p>
-</t>(1)	'H' = 'Heel Contact':  only the heel cluster is active;</p>
+      (1)	'H' = 'Heel Contact':  only the heel cluster is active;</p>
       (2)	'F' = 'Flat Foot Contact': the heel cluster is active, and at least one cluster under the forefoot is also active;</p>
       (3)	'P' = 'Propulsion': the heel cluster is inactive, while at least one forefoot cluster remains active;</p>
       (4) 'S' = 'Swing': all clusters are inactive</p>
