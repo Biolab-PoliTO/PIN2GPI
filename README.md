@@ -12,29 +12,30 @@ Although the use of force platforms and instrumented walkways is direct well-est
 
 
 ## What the ```PI2GPI``` algorithm does:
-1.	Load and convert INDIP text file (".txt") into a MATLAB matrix;
-2.	Detect Gait Cycle Phases from anatomic clustering of channels of PI;
-3.	Visualize results.
+1.	Load data file (".mat");
+2.	Detect Gait Phases from anatomic clustering of channels of PI;
+3.	Visualize results in 'csv' or 'txt'.
 
 ## Files description
 The following files are provided within the GitHub repository:
-- PI2GPI: Main function that guides you through all the main steps of Gait Cycle Phases detection;
-- openINDIP.m: Function that imports an INDIP text file (".txt") into a MATLAB matrix;
-- INDIP#098_28-05-2024_132036.txt: INDIP .txt file containing representative data acquired from pressure insoles and other sensors on a healthy subject during locomotion.
-- HFPTSdetect: Function containing detection of gait cycle phases from clustering of pressure insoles channels according to anatomic regions of foot. It consists of:
-  1. Individuate Activation Windows (AW) of each PI channel: first define AW according to the noise amplitude of PI signals and then make AW control based on Neighborhood. In order to prevent possible activation spikes due to acquisition error, a channel is considered "active" if almost three channels of its neighborhood are 'active'.
-  2. Individuate AW of each PI cluster: define four clusters according to four different anatomic points of foot (in order Heel, 5th metatarsal head, 1st metatarsal head and Thumb). A cluster is considered 'active' when almost one of its channels is active.
-  3. Identify gait phases: define correspondence between the combination of 'active' or 'not active' clusters and a specific gait phase;
-              'H': cluster1 'active', cluster2, cluster3 and cluster4 'not active';
-              'F': cluster1 'active' and almost one among cluster2, cluster3 or cluster4 'active';
-              'P': cluster1 'not active' and almost one among cluster2, cluster3 o cluster4 'active';
-              'T': only cluster4 'active';
-              'S': no cluster 'active';
-  4. Segment in Gait Cycle (GC) and save results: a GC starts a cycle begins at the first detection of foot contact.  If there are two consecutive transitions, only the first one is considered as a valid cycle start.
+- PI2GPI: Main function that guides you through all the main steps of Gait Phases detection;
+- data.mat: .mat file containing representative data acquired from pressure insoles and other sensors on a healthy adult during locomotion.
+- HFPS_extraction: Function containing detection of gait phases from clustering of pressure insoles channels according to anatomic regions of foot. It consists of:
+  1. Three clusters individuation: organize the sixteen channels of PI into three clusters according to four different anatomic points of foot. (Figure)
+      % Heel: channels '12,13,14,15,16'
+      % 5th metatarsal head: channels '5,9,10,11'
+      % 1st metatrsal head: channels '1,2,3,4,6,7,8'
+  3. Individuate AW of each cluster: 
+  4. Identify gait phases: define correspondence between the combination of 'active' or 'not active' clusters and a specific gait phase;
+     (1) 'H' = 'Heel Contact':  only the heel cluster is active;
+     (2) 'F' = 'Flat Foot Contact': the heel cluster is active, and at least one cluster under the forefoot is also active;
+     (3) 'P' = 'Propulsion': the heel cluster is inactive, while at least one forefoot cluster remains active;
+     (4) 'S' = 'Swing': all clusters are inactive
+  5. Save results: prompt the user to choose the output format 'csv' or 'txt' and the signal in 4 numeric levels ('levels') or phase labels ('phase')
 
 
 ## How to prepare your data
-INDIP data must be in .txt format to fit the analysis framework.
+INDIP data must be in .data format to fit the analysis framework.
 
 
 ## How to contribute to ```PI2GPI```
