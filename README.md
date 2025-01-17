@@ -35,7 +35,7 @@ For each cluster, the activation start times (maxima) and end times (subsequent 
 
 
 ## How to prepare your data
-INDIP data must be in .data format to fit the analysis framework. Data must be a standardized structure, as in [1]. 
+INDIP data must be in .data format to fit the analysis framework. Data must be a standardized structure, as in [2]. 
 
 
 ## How to contribute to ```PI2GPI```
@@ -52,7 +52,9 @@ Don't forget to give the project a star! Thanks again!
 ## Disclaimer
 This algorithm is provided as-is, and unfortunately, there are no guarantees that it fits your purposes or that it is bug-free.
 
-[1] L. Palmerini et al., “Mobility recorded by wearable devices and gold standards: the Mobilise-D procedure for data standardization,” Sci Data, vol. 10, no. 1, Dec. 2023, doi: 10.1038/s41597-023-01930-9.
+## Reference
+[1] A. Küderle, “Mobilise-D Technical Validation Study (TVS) dataset [Data set],” Zenodo. [Online]. Available: http://doi.org/10.5281/zenodo.13899385
+[2] L. Palmerini et al., “Mobility recorded by wearable devices and gold standards: the Mobilise-D procedure for data standardization,” Sci Data, vol. 10, no. 1, Dec. 2023, doi: 10.1038/s41597-023-01930-9.
 
 ## Contact
 Nicolas Leo, Fellow Research
