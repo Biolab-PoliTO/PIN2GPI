@@ -21,21 +21,20 @@ The following files are provided within the GitHub repository:
 - PI2GPI: Main function that guides you through all the main steps of Gait Phases detection;
 - data.mat: .mat file containing representative data acquired from pressure insoles and other sensors on a healthy adult during locomotion.
 - HFPS_extraction: Function containing detection of gait phases from clustering of pressure insoles channels according to anatomic regions of foot. It consists of:
-  1. Three clusters individuation: organize the sixteen channels of PI into three clusters according to four different anatomic points of foot. (Figure)
-     Heel: channels '12,13,14,15,16' (blue)
-     5th metatarsal head: channels '5,9,10,11' (green)
-     1st metatrsal head: channels '1,2,3,4,6,7,8' (red)
+  a. Three clusters individuation: organize the sixteen channels of PI into three clusters according to four different anatomic points of foot. (Figure)
+    i. Heel: channels '12,13,14,15,16' (blue)
+    ii. 5th metatarsal head: channels '5,9,10,11' (green) 1st metatrsal head: channels '1,2,3,4,6,7,8' (red)
      <p align="center">
 <img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="75"/>
 </p>
      
-  3. Individuate AW of each cluster: 
-  4. Identify gait phases: define correspondence between the combination of 'active' or 'not active' clusters and a specific gait phase;
+  b. Individuate AW of each cluster: 
+  c. Identify gait phases: define correspondence between the combination of 'active' or 'not active' clusters and a specific gait phase;
      (1) 'H' = 'Heel Contact':  only the heel cluster is active;
      (2) 'F' = 'Flat Foot Contact': the heel cluster is active, and at least one cluster under the forefoot is also active;
      (3) 'P' = 'Propulsion': the heel cluster is inactive, while at least one forefoot cluster remains active;
      (4) 'S' = 'Swing': all clusters are inactive
-  5. Save results: prompt the user to choose the output format 'csv' or 'txt' and the signal in 4 numeric levels ('levels') or phase labels ('phase')
+  d. Save results: prompt the user to choose the output format 'csv' or 'txt' and the signal in 4 numeric levels ('levels') or phase labels ('phase')
 
 
 ## How to prepare your data
