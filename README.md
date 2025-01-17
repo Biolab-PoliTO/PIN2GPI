@@ -25,8 +25,8 @@ The following files are provided within the GitHub repository:
      Heel: channels '12,13,14,15,16'
      5th metatarsal head: channels '5,9,10,11'
      1st metatrsal head: channels '1,2,3,4,6,7,8'
-     <p align="center">
-<img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="200"/>
+     <p align="right">
+<img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="20"/>
 </p>
      
   3. Individuate AW of each cluster: 
