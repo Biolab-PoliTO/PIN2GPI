@@ -1,8 +1,7 @@
 # PI2GPI: from Pressure Insoles to the Gait Phases Identification
 
 <p align="center">
-<img  src="https://github.com/NicolasLeo-hub/PI-GaPhI/blob/main/detection_example.jpg" width="2000"/>
-</p>
+
 
 Accurate detection of foot-floor contact during gait analysis is crucial for estimating spatio-temporal gait parameters. Variability in the sequence of gait phases (HFPS) is also a key factor in assessing fall risk among the elderly and pathological subjects. This repository introduces ```PI2GPI```, an approach designed for automatic and user-independent classification of gait cycle phases based on pressure insoles signals.
 
