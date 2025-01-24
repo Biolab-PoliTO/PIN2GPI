@@ -7,7 +7,7 @@ Accurate detection of foot-floor contact during gait analysis is essential for e
 
 While existing algorithms focus on stance and swing parameters only, there is still a lack of methods to extract the sub-phases of stance (heel contact, flat-foot contact, and push-off), specifically from PI signals. The analysys of these gait phases helps reveal hidden issues in abnormal walking patterns that can make frail patients more likely to fall. 
 
-```PI2GPI``` is a robust tool for the accurate and efficient classification of gait phases from pressure insoles data.
+```PI2GPI``` is a robust tool for the accurate and efficient classification of gait phases from pressure insole data, applicable both in structured laboratory tests and in unsupervised settings during free daily living activities.
 
 
 ## What the ```PI2GPI``` algorithm does:
