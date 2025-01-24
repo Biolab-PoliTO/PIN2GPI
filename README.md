@@ -36,7 +36,7 @@ Sum the signals within each group, smooth them using the MATLAB function smooth 
 
 
 ## How to prepare your data
-Data must be in .mat format to fit the analysis framework. Data example was extracted and reorganized from the open database made available by the Mobilise-D consortium [1].  What you need (see also PI.mat file) is a structure containing normalized pressure insole data in the range [0 1], organized in two fields: </p> 
+Data must be in .mat format to fit the analysis framework. Data example was extracted and reorganized from the open database made available by the Mobilise-D consortium [1].  What you need (see also PI.mat file) is a structure containing normalized pressure insoles data in the range [0 1], organized in two fields: </p> 
 - LeftFoot: N-by-M matrix, where N represents the time-samples and M represents the number of channels acquired from left side;</p>
 - RighFoot: N-by-M matrix, where N represents the time-samples and M represents the number of channels acquired from right side. </p>
 
