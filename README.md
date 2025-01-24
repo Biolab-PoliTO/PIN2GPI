@@ -3,7 +3,7 @@
 <p align="center">
 
 
-Accurate detection of foot-floor contact during gait analysis is essential for estimating spatio-temporal gait parameters. Variability in the sequence of gait phases is also a key factor in assessing risk of falls among elderly and pathological subjects. This repository introduces ```PI2GPI```, an approach designed for the automatic and user-independent classification of gait phases based on pressure insoles (PI) signals.
+Accurate detection of foot-floor contact during gait analysis is essential for estimating spatio-temporal gait parameters. Variability in the sequence of gait phases is also a key factor in assessing risk of falls among elderly and pathological subjects. This repository introduces ```PI2GPI```, an approach designed for the automatic classification of gait phases based on pressure insoles (PI) signals.
 
 While existing algorithms focus on stance and swing parameters only, there is still a lack of methods to extract the sub-phases of stance (heel contact, flat-foot contact, and push-off), specifically from PI signals. The analysys of these gait phases helps reveal hidden issues in abnormal walking patterns that can make frail patients more likely to fall. 
 
