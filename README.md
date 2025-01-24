@@ -18,7 +18,7 @@ While existing algorithms focus on stance and swing parameters only, there is st
 ## Files description
 The following files are provided within the GitHub repository:
 - PI2GPI: main function that guides you through all the main steps of Gait Phases detection;
-- PI.mat: .mat file containing representative data acquired from pressure insoles and other sensors on a healthy adult during an in-lab test.
+- PI.mat: .mat file containing representative data acquired from pressure insoles on a healthy adult during simulated daily activities test.
 - HFPS_extraction: function that contains the detection of gait phases from clustering of PI channels according to the anatomic contact points on the foot. It consists of:</p>
 </p>
   a. Three clusters selection: after defining the sampling frequency (Hz), arrange the sixteen PI channels in three clusters according to three different anatomical points on the foot: Heel (blue), 5th metatarsal head (green), 1st metatarsal head (red). </p>
