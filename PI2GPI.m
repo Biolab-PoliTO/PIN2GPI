@@ -17,7 +17,7 @@
 currentfolder = pwd;
 addpath(currentfolder);
 
-% Load and convert INDIP text file (".txt") into a MATLAB matrix:
+% Load data file ('PI.mat'):
 % --------------------------------------------------------------
 [filename,path] = uigetfile('*.mat','Select File to open');
 cd(path)
