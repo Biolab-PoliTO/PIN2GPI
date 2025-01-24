@@ -1,13 +1,13 @@
-function [output] = HFPS_extraction(data)
-% function [output, PI] = HFPS_extraction(data)
+function [output] = HFPS_extraction(PI)
+% function [output] = HFPS_extraction(PI)
 %
 % 'HFPS_extraction' function detects gait phases from clustering of pressure
-% insoles 16 channels according to three anatomic regions on the foot. 
+% insoles 16 channels according to three anatomic contact points on the foot. 
 %
-% INPUT: data        --> INDIP acquired matrix data
-%
-%
-% OUTPUT: output     --> structure containing:
+% INPUT: PI        --> INDIP acquired structure data containing
+%                       - LeftFoot: Left PI signal
+%                       - RightFoot: Right PI signal
+% OUTPUT: output   --> structure containing:
 %                       - LeftFoot: Left basographic signal
 %                       - RightFoot: Right basographic signal
 
@@ -21,7 +21,7 @@ function [output] = HFPS_extraction(data)
 %            V. Agostini (valentina.agostini@polito.it)
 %            BIOLAB, Politecnico di Torino, Turin, Italy
 %
-% Last Updated: 17/1/2024
+% Last Updated: 24/1/2024
 % ------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,8 +29,12 @@ function [output] = HFPS_extraction(data)
 % ----------------------------------------------------------------------
 % ----------------------------------------------------------------------
 
+% Sampling frequency definition
+% ---------------------------
+fs = input('Define your sampling frequency (Hz): ');
+
 % Organize the sixteen channels of PIs into three clusters according to 
-% three different anatomic points on the foot: 
+% three different anatomic contact points on the foot: 
 % Heel: channels '12,13,14,15,16'
 % 5th metatarsal head: channels '5,9,10,11'
 % 1st metatrsal head: channels '1,2,3,4,6,7,8'
@@ -44,7 +48,7 @@ cluster_name = {'heel','head5', 'head1'};
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % b. Pre-processing and Activation Windows detection for each cluster 
-% between max and min peaks
+% between the max and min peaks
 % -------------------------------------------------------------------------
 % -------------------------------------------------------------------------
 
@@ -63,14 +67,14 @@ minPeakHeight = 0.06;
 % for them to be considered separate, preventing detection of peaks that 
 % are too close together that might represent local fluctuations rather 
 % than distinct events.
-minPeakDistance = 20; 
+minPeakDistance = 0.2*fs; 
 
-side_PI = fieldnames(data); % Sides: LeftFoot and RightFoot
+sides = fieldnames(PI); % sides: LeftFoot and RightFoot
 
-for s = 1:length(side_PI)
+for s = 1:length(sides)
     for clus = 1:length(cluster_channels) % Cluster selection
 
-        PI_signals = data.(side_PI{s});
+        PI_signals = PI.(sides{s});
         num_samples = size(PI_signals, 1); % Samples number
     
         % Signal pre-processing
@@ -186,7 +190,7 @@ for s = 1:length(side_PI)
     % ---------------------------------------------------------------------
     i = 2; % Starting by 2nd phase
     while i <= length(Dur) - 1
-        if Dur(i) <= 5 % (5 samples/100 Hz = 50 ms)
+        if Dur(i) <= 0.05*fs % (50 ms*fs)
             % Verify if the phase before and after is the same
             if phase_num(Time(i-1)) == phase_num(Time(i+1))
                 % Update phase_num
@@ -197,8 +201,7 @@ for s = 1:length(side_PI)
         end
         i = i + 1;
     end   
-    output.phase.(side_PI{s}) = phase_string;
-    output.levels.(side_PI{s}) = phase_num;
+    output.(sides{s}) = phase_string;
 end
 
 
@@ -207,46 +210,27 @@ end
 % ---------------
 % ---------------
 
-% The user is prompted to choose the output format ('csv' or 'txt') and the
-% signal representation, either in 4 numeric levels ('levels') or phase labels ('phase')
+% The user is prompted to choose the output format ('csv' or 'txt') 
 % -------------------------------------------------------------------------
-valid_formats = {'txt', 'csv'};
-file_format = "";
-
-% Prompt the user to choose the output format
-% -------------------------------------------
+valid_formats = [0, 1]; 
+file_format = -1; % Initialization 
 while ~ismember(file_format, valid_formats)
-    file_format = input('Choose the output format ("txt" or "csv"): ', 's');
+    file_format = input('Choose the output format (0 for "txt" or 1 for "csv"): ');
     if ~ismember(file_format, valid_formats)
-        disp('Invalid format. Please choose "txt" or "csv".');
+        disp('Invalid format. Please choose 0 for "txt" or 1 for "csv".');
     end
 end
 
-% Ask the user if he prefers the signal in 4 numeric levels or phase labels
-% ---------------------------------------------------------------------
-signal_type = input('Choose the signal type ("levels" for numeric or "phase" for phase labels): ', 's');
-
-% Select the appropriate data based on user input
+% Create a output table with Left and Right basographic signal
 % -----------------------------------------------
-if strcmp(signal_type, 'levels')
-    Left = output.levels.LeftFoot(:);  % Column for levels data
-    Right = output.levels.RightFoot(:);  % Column for levels data
-elseif strcmp(signal_type, 'phase')
-    Left = output.phase.LeftFoot(:);  % Column for phase data
-    Right = output.phase.RightFoot(:);  % Column for phase data
-else
-    error('Invalid option. Please choose "levels" or "phase".');
-end
-
-results = table(Left, Right);  % Create a table with two columns
+results = table(output.LeftFoot(:), output.RightFoot(:), ...
+    'VariableNames', {'Left', 'Right'});
 
 % Save the file based on the chosen format
 % ----------------------------------------
-if strcmp(file_format, 'txt')
-    % Save in TXT format (with tab separation)
+if file_format==0 % 'txt'
     writetable(results, 'baso_result.txt', 'Delimiter', '\t');
-elseif strcmp(file_format, 'csv')
-    % Save in CSV format (with comma separation)
+elseif file_format==1 % 'csv'
     writetable(results, 'baso_result.csv');
 end
 end

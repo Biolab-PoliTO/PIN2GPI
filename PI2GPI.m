@@ -10,7 +10,7 @@
 %
 %            V. Agostini (valentina.agostini@polito.it)
 %            BIOLAB, Politecnico di Torino, Turin, Italy
-% Last Updated: 17/01/2024
+% Last Updated: 24/01/2024
 % ------------------------
 
 % Add functions folder to Matlab path
@@ -26,4 +26,4 @@ cd(currentfolder)
 
 % Basographic Signal Extraction:
 % ------------------------
-[baso] = HFPS_extraction(data);
+[baso] = HFPS_extraction_old(PI);
