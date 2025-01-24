@@ -26,4 +26,4 @@ cd(currentfolder)
 
 % Basographic Signal Extraction:
 % ------------------------
-[baso] = HFPS_extraction_old(PI);
+[baso] = HFPS_extraction(PI);
