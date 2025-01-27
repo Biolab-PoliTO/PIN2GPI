@@ -7,7 +7,7 @@ Accurate detection of foot-floor contact during gait analysis is essential for e
 
 While existing algorithms focus on stance and swing parameters only, there is still a lack of methods to extract the sub-phases of stance (heel contact, flat-foot contact, and push-off), specifically from PI signals. The analysys of these gait phases helps reveal hidden issues in abnormal walking patterns that can make frail patients more likely to fall. 
 
-```PI2GPI``` is a robust tool for the accurate and efficient classification of gait phases from pressure insole data, applicable both in structured laboratory tests and in unsupervised settings during free daily living activities.
+```PI2GPI``` is a tool for the classification of gait phases from pressure insole data, applicable both in structured laboratory tests and in unsupervised settings during free daily living activities.
 
 
 ## What the ```PI2GPI``` algorithm does:
@@ -25,7 +25,7 @@ The following files are provided within the GitHub repository:
 <img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="75"/> </p>
 If your data contains a different number of channels or follows a different channels distribution, you should modify the cluster organization within the HFPS_extraction function to match your specific dataset. </p>
   b. Pre-processing and Activation Windows detection for each cluster between the maximum and minima peaks  </p>
-Sum the signals within each group, smooth them using the MATLAB function smooth setting a 5-sample span and calculate their first derivative. The resulting signals undergo an additional moving average filter with an 11-sample span. For each cluster signal, the activation start times (maxima) and end times (subsequent minima) are identified using the MATLAB function findpeaks, by empirically setting the following parameters:  minProminence = 0.15; minPeakHeight = 0.06; minPeakDistance = 20. These values allow you to filter out peaks that are significant compared to the overall signal (minProminence), ignore peaks with very low amplitude values (minPeakHeight) and prevent detection of local fluctuations (minPeakDistance).  In cases where two consecutive minima occur within a 500 ms interval, the second minimum is selected as the deactivation point. </p>
+Sum the signals within each group, smooth them using the MATLAB function smooth setting a 11-sample span and calculate their first derivative. The resulting signals undergo an additional moving average filter with an 5-sample span. For each cluster signal, the activation start times (maxima) and end times (subsequent minima) are identified using the MATLAB function findpeaks, by empirically setting the following parameters:  minProminence = 0.15; minPeakHeight = 0.06; minPeakDistance = 20. These values allow you to filter out peaks that are significant compared to the overall signal (minProminence), ignore peaks with very low amplitude values (minPeakHeight) and prevent detection of local fluctuations (minPeakDistance).  In cases where two consecutive minima occur within a 500 ms interval, the second minimum is selected as the deactivation point. </p>
   c. Gait Phases Identification (GPI): define the correspondence between the combination of 'active' or 'not active' clusters and  specific gait phases; </p>
       (1)	'H' = 'Heel Contact': only the heel cluster is active;</p>
       (2)	'F' = 'Flat Foot Contact': the heel cluster is active, and at least one cluster under the forefoot is also active;</p>
