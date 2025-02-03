@@ -10,14 +10,17 @@
 %
 %            V. Agostini (valentina.agostini@polito.it)
 %            BIOLAB, Politecnico di Torino, Turin, Italy
-% Last Updated: 24/01/2024
+% Last Updated: 03/02/2024
 % ------------------------
 
 % Add functions folder to Matlab path
 currentfolder = pwd;
 addpath(currentfolder);
 
-% Load data file ('PI.mat'):
+% Load data file ('PI.mat'), a structure containing normalized pressure 
+% insoles data in the range [0 1], organized in two fields:
+% - LeftFoot: N-by-M matrix, where N = time-samples and M = channels number;
+% - RighFoot: N-by-M matrix, where N = time-samples and M = channels number;
 % --------------------------------------------------------------
 [filename,path] = uigetfile('*.mat','Select File to open');
 cd(path)
