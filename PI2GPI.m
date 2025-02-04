@@ -72,11 +72,11 @@ y = [13, 11.5, 11.5, 11.5, 10.5, 10, 10, 10, 9, 7.5, 6, 3.5, 2, 2, 0.5, 0.5];
 figure; hold on;
 scatter(x, y, 100, 'k', 'filled');
 scatter(x(cluster_channels{1}), y(cluster_channels{1}), 300, ...
-    hex2rgb('#0072bd'), 'filled', 'DisplayName', 'Heel'); % Cluster 1
+    [0, 114, 189] / 255, 'filled', 'DisplayName', 'Heel'); % Cluster 1
 scatter(x(cluster_channels{2}), y(cluster_channels{2}), 300, ...
-    hex2rgb('#77ac30'), 'filled', 'DisplayName', '5th Metatarsal Head'); % Cluster 2
+    [119, 172, 48] / 255, 'filled', 'DisplayName', '5th Metatarsal Head'); % Cluster 2
 scatter(x(cluster_channels{3}), y(cluster_channels{3}), 300, ...
-    hex2rgb('#a2142f'), 'filled', 'DisplayName', '1st Metatarsal Head'); % Cluster 3
+    [162, 20, 47] / 255, 'filled', 'DisplayName', '1st Metatarsal Head'); % Cluster 3
 
 for i = 1:length(x)
     text(x(i)-0.2, y(i), num2str(i), 'FontSize', 10, 'FontWeight', 'bold', 'Color', 'w');
