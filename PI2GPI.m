@@ -72,7 +72,7 @@ y = [13, 11.5, 11.5, 11.5, 10.5, 10, 10, 10, 9, 7.5, 6, 3.5, 2, 2, 0.5, 0.5];
 figure; hold on;
 scatter(x, y, 100, 'k', 'filled');
 
-colors = {hex2rgb('#0072bd'), hex2rgb('#77ac30'), hex2rgb('#a2142f')};
+colors = {[0, 114, 189] / 255,  [119, 172, 48] / 255, [162, 20, 47] / 255};
 labels = {'Heel', '5th Metatarsal Head', '1st Metatarsal Head'};
 
 for i = 1:3 % Loop over clusters
