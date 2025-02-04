@@ -44,7 +44,8 @@ addpath(currentfolder);
 disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Loading *.mat file...']);
 [filename, path] = uigetfile('*.mat',['Select *.mat file containing pressure' ...
     'insole data to open...']);
-load([path filename])
+load([path filename]);
+clear filename path
 disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Loading *.mat file...Ok']);
 
 %% Spatial clusters definition
@@ -55,8 +56,7 @@ disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Loading *.mat f
 
 % IMPORTANT: The number and composition of the spatial clusters should be 
 % adjusted to best fit the specific requirements of your study.
-disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ...
-    ' - Set spatial clusters...']);
+disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Set spatial clusters...']);
 cluster_name = {'heel', 'head5', 'head1'}; % Set clusters' names
 cluster_channels = {          % Assignment of channels to each cluster
     [12, 13, 14, 15, 16], ... % Cluster 1: heel
@@ -67,95 +67,84 @@ cluster_channels = {          % Assignment of channels to each cluster
 x = [1, 1, 2, 3, 4, 1, 2, 3, 4, 4, 4, 4, 3, 4, 2, 3];
 y = [13, 11.5, 11.5, 11.5, 10.5, 10, 10, 10, 9, 7.5, 6, 3.5, 2, 2, 0.5, 0.5];
 
-% Plot current cluster configuration
-% ----------------------------------
+% Plot cluster configuration
+% --------------------------
 figure; hold on;
 scatter(x, y, 100, 'k', 'filled');
-scatter(x(cluster_channels{1}), y(cluster_channels{1}), 300, ...
-    [0, 114, 189] / 255, 'filled', 'DisplayName', 'Heel'); % Cluster 1
-scatter(x(cluster_channels{2}), y(cluster_channels{2}), 300, ...
-    [119, 172, 48] / 255, 'filled', 'DisplayName', '5th Metatarsal Head'); % Cluster 2
-scatter(x(cluster_channels{3}), y(cluster_channels{3}), 300, ...
-    [162, 20, 47] / 255, 'filled', 'DisplayName', '1st Metatarsal Head'); % Cluster 3
 
-for i = 1:length(x)
-    text(x(i)-0.2, y(i), num2str(i), 'FontSize', 10, 'FontWeight', 'bold', 'Color', 'w');
+colors = {hex2rgb('#0072bd'), hex2rgb('#77ac30'), hex2rgb('#a2142f')};
+labels = {'Heel', '5th Metatarsal Head', '1st Metatarsal Head'};
+
+for i = 1:3 % Loop over clusters
+    scatter(x(cluster_channels{i}), y(cluster_channels{i}), 300, colors{i}, ...
+        'filled', 'DisplayName', labels{i});
 end
-xlim([-6 10]), ylim([-1 16])
-legend({'','Heel', '5th Metatarsal Head', '1st Metatarsal Head'}, ...
-    'Location', 'Best');
-title('Current PI Cluster Configuration'); axis off; grid off; 
+
+text(x-0.2, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, 'FontWeight', ...
+    'bold', 'Color', 'w');
+
+xlim([-6 10]); ylim([-1 16]);
+legend([{''}, labels(:)'], 'Location', 'Best');
+title('Current PI Cluster Configuration'); axis off; grid off;
+disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Set spatial clusters...Ok']);
 hold off;
-disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ...
-    ' - Set spatial clusters...Ok']);
 
-%% b. Pre-processing and Activation Windows detection for each cluster 
-% between the max and min peaks
-% -------------------------------------------------------------------------
-% -------------------------------------------------------------------------
+clear colors labels x y
 
-% Minimum Peak Height: the minimum height that a peak must have to be 
-% considered and allows you to ignore peaks with very low amplitude values ​​
-% that could be caused by noise fluctuations.
-minPeakHeight = 0.01;
-fs = 100;
-sides = fieldnames(PI); % sides: LeftFoot and RightFoot
+%% Pre-processing and detection of activation windows for each cluster
+% --------------------------------------------------------------------
+% Setting parameters
+% ------------------
+minPeakHeight = 0.01; % The lowest amplitude a signal must reach to be 
+                      % considered as 'active', filtering out low-amplitude 
+                      % fluctuations likely caused by noise.
+sides = fieldnames(data); % sides: LeftFoot and RightFoot
 
-for s = 1:length(sides)
-    for clus = 1:length(cluster_channels) % Cluster selection
-
-        PI_signals = PI.(sides{s});
-        num_samples = size(PI_signals, 1); % Samples number
+for s = 1:length(sides) % Loop over sides
+    for clus = 1:length(cluster_channels) % Loop over clusters
+        num_samples = size(data.(sides{s}), 1); % Number of time-instants
     
-        % Signal pre-processing
-        % ---------------------
-        signals = PI_signals(:, channels.(cluster_name{clus})); % Its channels selection
-        signal_sum = sum(signals, 2)/length(channels.(cluster_name{clus})); % Sum signals/n_signals 
-        signal_sum = smooth(signal_sum,11); % Smoothing 
-        deriv_signal = [0; diff(signal_sum)]; % Derivatative signal
-        smooth_signal = smooth(deriv_signal); % Additional smoothing
-    
-        % Find maximum peaks
-        % ------------------
-        [maxPeaks.(cluster_name{clus}), maxLocs.(cluster_name{clus})] = findpeaks(smooth_signal,"MinPeakHeight",minPeakHeight);
-    
-        % Find minimum peaks on inverted signal
-        % -------------------------------------
-        [minPeaks.(cluster_name{clus}), minLocs.(cluster_name{clus})] = findpeaks(-smooth_signal,"MinPeakHeight",minPeakHeight);
-        minPeaks.(cluster_name{clus}) = -minPeaks.(cluster_name{clus});
-        % Array inizialization of activation windows
-        % ------------------------------------------
+        % % Signal pre-processing: Combine, normalize, and smooth signals
+        % ---------------------------------------------------------------
+        clus_signals_sum = mean(sum(data.(sides{s})(:, cluster_channels{clus}), 2), 2); % Combine and normalize signals
+        clus_signals_der = smooth([0; diff(smooth(clus_signals_sum, 11))]); % Smooth and compute first derivative
+
+        % Detection of maximum and minimum peaks
+        % --------------------------------------
+        [maxPeaks.(cluster_name{clus}), maxLocs.(cluster_name{clus})] = ...
+            findpeaks(clus_signals_der, "MinPeakHeight", minPeakHeight);
+        [minPeaks.(cluster_name{clus}), minLocs.(cluster_name{clus})] = ...
+            findpeaks(-clus_signals_der, "MinPeakHeight", minPeakHeight);
+        minPeaks.(cluster_name{clus}) = -minPeaks.(cluster_name{clus}); % Invert minima
+
+        % Activation window detection
+        % ---------------------------
+        % BRIEFLY DESCRIBE THE FUNCTIONING OF THE ALGORITHM!
         activation.(cluster_name{clus}) = zeros(1, num_samples);
-    
-        % Activation window definition
-        % ----------------------------
-        for i = 1:length(maxLocs.(cluster_name{clus}))-1
-            current_max_pos = maxLocs.(cluster_name{clus})(i); % Current maximum
-            subsequent_max_pos = maxLocs.(cluster_name{clus})(i+1); % Consecutive maximum
+
+        for i = 1:length(maxLocs.(cluster_name{clus}))-1 % Loop over maximum peaks
+            current_max_pos = maxLocs.(cluster_name{clus})(i); % Current maximum peak
+            subsequent_max_pos = maxLocs.(cluster_name{clus})(i+1); % Next maximum peak
      
-            % Find all the minima between two consecutive maxima 
+            % Find all the minimum peaks between two consecutive maximum peaks
             valid_min_idxs = find((minLocs.(cluster_name{clus}) > current_max_pos) & ...
-                (minLocs.(cluster_name{clus}) < subsequent_max_pos )); 
-            
+                (minLocs.(cluster_name{clus}) < subsequent_max_pos));
+
             if ~isempty(valid_min_idxs)
-                % Select the minimum with higher absolute amplitude as
-                % disactivation time
-                [~, max_amplitude_idx] = max(abs(minPeaks.(cluster_name{clus})(valid_min_idxs))); % Max value
-                min_idx = valid_min_idxs(max_amplitude_idx);
-                subsequent_min_pos = minLocs.(cluster_name{clus})(min_idx); 
+                % Select minimum with highest amplitude
+                [~, min_idx] = max(abs(minPeaks.(cluster_name{clus})(valid_min_idxs)));
+                subsequent_min_pos = minLocs.(cluster_name{clus})(valid_min_idxs(min_idx));
             else
-                % Select the maximum with higher absolute amplitude as
-                % activation time
+                % Select higher amplitude max if no valid minima
                 if maxPeaks.(cluster_name{clus})(i) < maxPeaks.(cluster_name{clus})(i+1)
-                    current_max_pos = subsequent_max_pos; 
-                end 
-                % Select the subsequent minimum as disactivation time
-               subsequent_min_idxs = find((minLocs.(cluster_name{clus}) > current_max_pos), 1, 'first'); 
-               subsequent_min_pos = minLocs.(cluster_name{clus})(subsequent_min_idxs);
+                    current_max_pos = subsequent_max_pos;
+                end
+                % Find subsequent minimum
+                subsequent_min_pos = minLocs.(cluster_name{clus})(find(minLocs.(cluster_name{clus}) ...
+                    > current_max_pos, 1, 'first'));
             end
- 
-             % Define activation among max and min-1
-             activation.(cluster_name{clus})(current_max_pos:subsequent_min_pos-1) = 1; % Activation cluster       
+             % Define activation windows for each cluster
+             activation.(cluster_name{clus})(current_max_pos:subsequent_min_pos-1) = 1;     
         end
     end
     
@@ -200,17 +189,11 @@ for s = 1:length(sides)
     output.(sides{s}) = phase_string;
 end
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% d. Save results
-% ---------------
-% ---------------
-
-% Create a output table with Left and Right basographic signal
-% -----------------------------------------------
+%% Export data
+% ------------
+% Create the table with left and right signals
 results = table(output.LeftFoot(:), output.RightFoot(:), ...
     'VariableNames', {'Left', 'Right'});
 
-% Save the file based on the chosen format
-% ----------------------------------------
-writetable(results, 'baso_result.csv');
+% Save the *.csv file
+writetable(results, 'PI2GPI_result.csv');
