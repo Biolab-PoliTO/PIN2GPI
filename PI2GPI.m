@@ -15,7 +15,8 @@
 %            PolitoBIOMed Lab and BIOLAB, Politecnico di Torino, Turin, Italy
 %
 % File: Pi2GPI.m
-% Date: 03-02-2024 (Documentations)
+% Date: 05-02-2025 (Code fixing and optimization)
+%       03-02-2024 (Documentations)
 % -------------------------------------------------------------------------
 
 % Clear all previous initialized variables and close all figures
@@ -23,6 +24,7 @@
 clearvars
 close all
 clc
+tic
 
 % Set code logging
 % ----------------
@@ -73,7 +75,7 @@ figure; hold on;
 scatter(x, y, 100, 'k', 'filled');
 
 colors = {[0, 114, 189] / 255,  [119, 172, 48] / 255, [162, 20, 47] / 255};
-labels = {'Heel', '5th Metatarsal Head', '1st Metatarsal Head'};
+labels = {'Heel', '5th Metatarsal head', '1st Metatarsal head'};
 
 for i = 1:3 % Loop over clusters
     scatter(x(cluster_channels{i}), y(cluster_channels{i}), 300, colors{i}, ...
@@ -85,7 +87,7 @@ text(x-0.2, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, 'FontWeight', .
 
 xlim([-6 10]); ylim([-1 16]);
 legend([{''}, labels(:)'], 'Location', 'Best');
-title('Current PI Cluster Configuration'); axis off; grid off;
+title('Current cluster configuration'); axis off; grid off;
 disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Set spatial clusters...Ok']);
 hold off;
 
@@ -101,11 +103,15 @@ minPeakHeight = 0.01; % The lowest amplitude a signal must reach to be
 sides = fieldnames(data); % sides: LeftFoot and RightFoot
 
 for s = 1:length(sides) % Loop over sides
+    
+    disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
+        char(sides(s)) ' - Pre-processing and detection of activation windows...']);
+
     for clus = 1:length(cluster_channels) % Loop over clusters
         num_samples = size(data.(sides{s}), 1); % Number of time-instants
     
-        % % Signal pre-processing: Combine, normalize, and smooth signals
-        % ---------------------------------------------------------------
+        % Pre-processing: combine, normalize, and smooth signals
+        % ------------------------------------------------------
         clus_signals_sum = mean(sum(data.(sides{s})(:, cluster_channels{clus}), 2), 2); % Combine and normalize signals
         clus_signals_der = smooth([0; diff(smooth(clus_signals_sum, 11))]); % Smooth and compute first derivative
 
@@ -148,38 +154,39 @@ for s = 1:length(sides) % Loop over sides
         end
     end
     
-    
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % c. Gait Phases Identification (GPI) (Heel contact - Flat foot contact - 
-    % Push off - Swing)
-    % ---------------------------------------------------------------------
-    % ---------------------------------------------------------------------
+    disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
+        char(sides(s)) ' - Pre-processing and detection of activation windows...Ok']);
 
-    % Define the correspondence between the combination of 'active' or 'not 
-    % active' clusters and specific gait phases
-    % (H): only the heel cluster is active
-    % (F): the heel cluster is active, and at least one cluster under the 
-    %      forefoot is also active
-    % (P): the heel cluster is inactive, while at least one forefoot cluster 
-    %      remains active
-    % (S): all clusters are inactive 
+    %% Gait cycle sub-phases identification
+    % -------------------------------------
+    % The gait cycle subphases are determined based on the activation status 
+    % of each cluster, following these rules:
+    % Phase H (Heel Contact): Only the heel cluster is active;
+    % Phase F (Flat-Foot Contact): The heel cluster remains active, with at 
+    %                              least one cluster under the forefoot also active;
+    % Phase P (Push-Off): The heel cluster becomes inactive, while at least 
+    %                     one forefoot cluster remains active;
+    % Phase S (Swing): All clusters are inactive. 
     
-    % Variables Inizialization
-    % ------------------------
+    disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
+        char(sides(s)) ' - Gait cycle subphase identification...']);
+
+    % Initialize variables
+    % --------------------
     phase_string = repmat(' ', 1, num_samples);
     phase_num = zeros(1, num_samples);
     
-    % Select phase for each temporal instant
-    % ------------------------
-    for t = 1:num_samples
+    % Identify gait subphase according to activation rules
+    % ----------------------------------------------------
+    for t = 1:num_samples % Loop over time instants
         if activation.heel(t) && ~activation.head1(t) && ~activation.head5(t)
             phase_string(t) = 'H'; % Heel contact
             phase_num(t) = 1;
         elseif activation.heel(t) && (activation.head1(t) || activation.head5(t))
-            phase_string(t) = 'F'; % Flat foot
+            phase_string(t) = 'F'; % Flat-foot contact
             phase_num(t) = 2;
         elseif ~activation.heel(t) && (activation.head1(t) || activation.head5(t))
-            phase_string(t) = 'P'; % Push off
+            phase_string(t) = 'P'; % Push-off
             phase_num(t) = 3;
         else
             phase_string(t) = 'S'; % Swing
@@ -187,13 +194,28 @@ for s = 1:length(sides) % Loop over sides
         end
     end
     output.(sides{s}) = phase_string;
+    output.(sides{s}) = phase_num;
+
+    disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
+        char(sides(s)) ' - Gait cycle subphase identification...Ok']);
+
 end
 
 %% Export data
 % ------------
+disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ...
+    ' - Saving results to *.csv file...']);
+
 % Create the table with left and right signals
 results = table(output.LeftFoot(:), output.RightFoot(:), ...
     'VariableNames', {'Left', 'Right'});
 
 % Save the *.csv file
 writetable(results, 'PI2GPI_result.csv');
+
+disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ...
+    ' - Saving results to *.csv file...Ok']);
+
+elapsedTime = toc;
+disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Execution time: ' num2str(elapsedTime, '%.2f') ' seconds']);
+diary off;
