@@ -15,7 +15,8 @@
 %            PolitoBIOMed Lab and BIOLAB, Politecnico di Torino, Turin, Italy
 %
 % File: Pi2GPI.m
-% Date: 05-02-2025 (Code fixing and optimization)
+% Date: 06-02-2025 (Data export)
+%       05-02-2025 (Code fixing and optimization)
 %       03-02-2024 (Documentations)
 % -------------------------------------------------------------------------
 
@@ -100,7 +101,7 @@ clear colors labels x y
 minPeakHeight = 0.01; % The lowest amplitude a signal must reach to be 
                       % considered as 'active', filtering out low-amplitude 
                       % fluctuations likely caused by noise.
-sides = fieldnames(data); % sides: LeftFoot and RightFoot
+sides = fieldnames(data); % sides: 'LeftFoot' and 'RightFoot'
 
 for s = 1:length(sides) % Loop over sides
     
@@ -126,6 +127,7 @@ for s = 1:length(sides) % Loop over sides
         % Activation window detection
         % ---------------------------
         % BRIEFLY DESCRIBE THE FUNCTIONING OF THE ALGORITHM!
+        
         activation.(cluster_name{clus}) = zeros(1, num_samples);
 
         for i = 1:length(maxLocs.(cluster_name{clus}))-1 % Loop over maximum peaks
@@ -178,26 +180,17 @@ for s = 1:length(sides) % Loop over sides
     
     % Identify gait subphase according to activation rules
     % ----------------------------------------------------
-    for t = 1:num_samples % Loop over time instants
-        if activation.heel(t) && ~activation.head1(t) && ~activation.head5(t)
-            phase_string(t) = 'H'; % Heel contact
-            phase_num(t) = 1;
-        elseif activation.heel(t) && (activation.head1(t) || activation.head5(t))
-            phase_string(t) = 'F'; % Flat-foot contact
-            phase_num(t) = 2;
-        elseif ~activation.heel(t) && (activation.head1(t) || activation.head5(t))
-            phase_string(t) = 'P'; % Push-off
-            phase_num(t) = 3;
-        else
-            phase_string(t) = 'S'; % Swing
-            phase_num(t) = 4;
-        end
-    end
-    output.(sides{s}) = phase_string;
-    output.(sides{s}) = phase_num;
+    output.(sides{s}) = ones(1, num_samples) * 4; % Default phase is swing (output = 4)
+    output.(sides{s})(activation.heel & ~(activation.head1 | activation.head5)) = 1; % Heel phase (output = 1)
+    output.(sides{s})(activation.heel & (activation.head1 | activation.head5)) = 2; % Flat-foot phase (output = 2)
+    output.(sides{s})(~activation.heel & (activation.head1 | activation.head5)) = 3; % Push-off phase (output = 3)
 
     disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
         char(sides(s)) ' - Gait cycle subphase identification...Ok']);
+
+    % Represent gait subphases
+    % ------------------------
+    % INSERT HERE BASO SIGNALS!
 
 end
 
@@ -207,8 +200,8 @@ disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ...
     ' - Saving results to *.csv file...']);
 
 % Create the table with left and right signals
-results = table(output.LeftFoot(:), output.RightFoot(:), ...
-    'VariableNames', {'Left', 'Right'});
+results = table((1:num_samples)', output.LeftFoot(:), output.RightFoot(:), ...
+    'VariableNames', {'Sample','Left', 'Right'});
 
 % Save the *.csv file
 writetable(results, 'PI2GPI_result.csv');
