@@ -77,9 +77,7 @@ for s = 1:length(sides) % Loop over sides
     
     % Plot cluster configuration
     % --------------------------
-    figure('Name', sprintf('%s Results Plot', sides{s}), 'NumberTitle', 'off', ...
-        'Units','centimeters','Position',[5,5,40,20]);
-    subplot(2,2,[1 3]), hold on;
+    figure; hold on;
     scatter(x, y, 100, 'k', 'filled');
     
     colors = {[0, 114, 189] / 255,  [119, 172, 48] / 255, [162, 20, 47] / 255};
@@ -90,25 +88,18 @@ for s = 1:length(sides) % Loop over sides
             'filled', 'DisplayName', labels{i});
     end
     
-    % Modify based on the side (left or right)
-    % ---------------------------------------
-    if strcmp(sides{s}, 'LeftFoot')  % If the side is left
-        text(x+0.2, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, 'FontWeight', 'bold', 'Color', 'w');
-        set(gca, 'XDir', 'reverse');  % Reverse the X axis for the left side
-    else
-        text(x-0.2, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, 'FontWeight', 'bold', 'Color', 'w');
-    end
+    text(x-0.2, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, 'FontWeight', ...
+        'bold', 'Color', 'w');
     
     xlim([-6 10]); ylim([-1 16]);
     legend([{''}, labels(:)'], 'Location', 'Best');
-    title(sprintf('%s current cluster configuration', sides{s})); grid off;
+    title('Current cluster configuration'); axis off; grid off;
+    disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Set spatial clusters...Ok']);
+    hold off;
+    
     disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
         char(sides(s)) ' - Set spatial clusters...Ok']);
-    hold off;
-    set(gca, 'XColor', 'w', 'YColor', 'w')
-    
-    clear labels x y
-    
+   
     %% Pre-processing and detection of activation windows for each cluster
     % --------------------------------------------------------------------
     % Setting parameters
@@ -140,12 +131,11 @@ for s = 1:length(sides) % Loop over sides
 
         % Activation Window (AW) detection
         % ---------------------------
-        % AW is defined as the time interval between the current maximum and
-        % the lowest minimum before the subsequent maximum. In cases where 
-        % two consecutive maxima occur without an intermediate minimum, the 
-        % maximum with the highest amplitude is selected as the activation 
-        % onset and the next occurring minimum is used as the activation 
-        % offset. 
+        % For each cluster, AW is the time between the i-th maximum and the 
+        % lowest preceding minimum before the next maximum. If two maxima occur
+        % consecutively, the higher one marks activation onset, and the next 
+        % minimum marks activation offset.
+        
         activation.(cluster_name{clus}) = zeros(1, num_samples);
 
         for i = 1:length(maxLocs.(cluster_name{clus}))-1 % Loop over maximum peaks
@@ -202,31 +192,52 @@ for s = 1:length(sides) % Loop over sides
         char(sides(s)) ' - Gait cycle subphase identification...Ok']);
 
     % Represent gait subphases
-    % ------------------
+    % ------------------------
     disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
     char(sides(s))    ' - Results visualization...']);
-
-    % Plot results
-    % -----------------
-    subplot(2,2,2), hold on;
-    for clus = 1:length(cluster_channels) % Loop over clusters
-         plot(data.(sides{s})(:, cluster_channels{clus}),  'Color', colors{clus}), hold on,
+    
+    figure('Name', sprintf('%s Results Plot', sides{s}), 'NumberTitle', 'off', ...
+        'units', 'normalized', 'outerposition', [0 0 1 1]);
+    subplot(2,3,1), hold on;
+    scatter(x, y, 100, 'k', 'filled');
+    
+    for i = 1:3 % Loop over clusters
+        scatter(x(cluster_channels{i}), y(cluster_channels{i}), 300, colors{i}, ...
+            'filled', 'DisplayName', labels{i});
     end
-    title('PI signals')
-    ylabel('Pressure Amplitude (a.u.)'),
-    ylim([-0.1 1.1]),yticks([0 1]), set(gca, 'XTickLabel', []);
+
+    offset = 0.2 * strcmp(sides{s}, 'LeftFoot') - 0.2 * strcmp(sides{s}, 'RightFoot');
+    text(x + offset, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, ...
+        'FontWeight', 'bold', 'Color', 'w');
+    if strcmp(sides{s}, 'LeftFoot')
+        set(gca, 'XDir', 'reverse');
+    end
+    
+    xlim([-6 10]); ylim([-1 16]);
+    legend([{''}, labels(:)'], 'Location', 'Best'); hold off;
+    title(sprintf('%s current cluster configuration', sides{s})); grid off;
+    set(gca, 'XTick', [], 'YTick', []);
+    
+    subplot(2,3,[2 3]), hold on;
+    for clus = 1:length(cluster_channels) % Loop over clusters
+         plot(data.(sides{s})(:, cluster_channels{clus}),  'Color', colors{clus})
+    end
+    title('Pressure insole signals')
+    ylabel('Amplitude (a.u.)'),
+    ylim([-0.1 1.1]), yticks([0 1]), set(gca, 'XTickLabel', []);
    
-    subplot(2,2,4)
+    subplot(2,3,[5 6])
     stairs(output.(sides{s}),'Color','k', 'LineWidth', 2),
     yticks([0 1 2 3 4 5]), yticklabels({'','H', 'F', 'P', 'S', ''});
     xlabel('Time (sample)'), ylim([0 5]);
-    title(sprintf('%s Basographic Signal', sides{s}))
+    title(sprintf('%s Gait Subphases', sides{s}))
     hold off, box off, 
     
     axesHandles = findall(gcf, 'Type', 'axes');
     axesToLink = [axesHandles(2), axesHandles(1)]; 
     linkaxes(axesToLink, 'x');
     xlim([-0.1 num_samples]);
+
     disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - ' ...
     char(sides(s)) ' - Results visualization...Ok']);
 end
