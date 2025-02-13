@@ -6,17 +6,17 @@
 
 Accurate detection of foot-floor contact sequences during walking is a fundamental requirement for accurately estimating spatio-temporal gait parameters, which are widely used in gait analysis for clinical, rehabilitation, and research purposes. Variability in gait phase sequences is particularly important in assessing the risk of falls, especially among elderly individuals and those with pathological gait patterns. These variations may indicate underlying conditions such as neurological disorders, musculoskeletal impairments, or frailty, impacting mobility and increasing the likelihood of falls.<br>
 
-To address these challenges, this repository introduces '''PI2GPI''', an open-source toolbox designed for the automatic identification and classification of gait subphases using data collected from Pressure Insoles (PIs). This innovative approach leverages the temporal and spatial information provided by PIs to accurately identify both the principal gait subphases (i.e., stance and swing) and the finer sub-phases of stance (i.e., heel contact, flat-foot contact, and push-off) [1].<br>
+To address these challenges, this repository introduces ```PI2GPI```, an open-source toolbox designed for the automatic identification and classification of gait subphases using data collected from Pressure Insoles (PIs). This innovative approach leverages the temporal and spatial information provided by PIs to accurately identify both the principal gait subphases (i.e., stance and swing) and the finer sub-phases of stance (i.e., heel contact, flat-foot contact, and push-off) [1].<br>
 
 While many existing algorithms for gait analysis focus solely on differentiating between the stance and swing phases, they often fail to capture the sub-phases within the stance phase. These sub-phases are crucial for a comprehensive understanding of gait mechanics, as they provide deeper insights into atypical walking patterns. For example, deviations from the typical sequence of heel contact, flat-foot contact, push-off, and swing are common in individuals with gait impairments and may serve as an early indicator of mobility issues or fall risk [1],[2],[3].<br>
 
-'''PI2GPI''' is specifically designed to bridge this gap by offering a robust and accurate solution for identifying and classifying gait cycles from PI data. It is versatile and can be used across a wide range of applications, from controlled laboratory environments to unsupervised real-world settings such as free daily living activities. This flexibility makes it an invaluable tool for clinicians, researchers, and healthcare providers seeking to monitor and analyze gait in both structured and dynamic conditions. Moreover, '''PI2GPI''' can be flexibly modified at need to comply with the necessities of the user.<br>
+```PI2GPI``` is specifically designed to bridge this gap by offering a robust and accurate solution for identifying and classifying gait cycles from PI data. It is versatile and can be used across a wide range of applications, from controlled laboratory environments to unsupervised real-world settings such as free daily living activities. This flexibility makes it an invaluable tool for clinicians, researchers, and healthcare providers seeking to monitor and analyze gait in both structured and dynamic conditions. Moreover, ```PI2GPI``` can be flexibly modified at need to comply with the necessities of the user.<br>
 
-By enabling the detection of subtle abnormalities in gait phase sequences, '''PI2GPI''' helps uncover unique insights into an individual’s walking patterns, paving the way for more effective interventions, personalized treatment plans, and fall prevention strategies. Its open-source nature ensures accessibility for the research community and promotes further development and innovation in gait analysis.<br>
+By enabling the detection of subtle abnormalities in gait phase sequences, ```PI2GPI``` helps uncover unique insights into an individual’s walking patterns, paving the way for more effective interventions, personalized treatment plans, and fall prevention strategies. Its open-source nature ensures accessibility for the research community and promotes further development and innovation in gait analysis.<br>
 
 
 ## What the ```PI2GPI``` algorithm does:
-1.	Load ''*.mat'' file containing the normalized PI data
+1.	Load ``*.mat`` file containing the normalized PI data
 2.	Define anatomical clusters and pre-process PI data 
 3.	Identify gait subphases based on the activation status of each cluster
 4.	Graphically represent results 
@@ -58,8 +58,8 @@ Bugs are tracked as **GitHub issues**. Whenever you report an issue, please make
 
 
 ## Contacts
-Nicolas Leo, Scholarship holder - [BIOLAB@Polito](https://biolab.polito.it)<br>
+**Nicolas Leo**, Scholarship holder - [BIOLAB@Polito](https://biolab.polito.it)<br>
 [@NicolasLeo](https://www.linkedin.com/in/nicolas-leo-732aa927b/) - nicolas.leo@polito.it
 
-Marco Ghislieri, Ph.D. - [BIOLAB@Polito](https://biolab.polito.it/people/marco-ghislieri/) <br>
+**Marco Ghislieri**, Ph.D. - [BIOLAB@Polito](https://biolab.polito.it/people/marco-ghislieri/) <br>
 [@MarcoGhislieri](https://twitter.com/MarcoGhislieri) - marco.ghislieri@polito.it
