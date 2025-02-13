@@ -18,7 +18,7 @@
 % Date: 07-02-2025 (Plot and comments)
 %       06-02-2025 (Data export)
 %       05-02-2025 (Code fixing and optimization)
-%       03-02-2024 (Documentations)
+%       03-02-2025 (Documentations)
 % -------------------------------------------------------------------------
 
 % Clear all previous initialized variables and close all figures
@@ -93,7 +93,7 @@ for s = 1:length(sides) % Loop over sides
     
     xlim([-6 10]); ylim([-1 16]);
     legend([{''}, labels(:)'], 'Location', 'Best');
-    title('Current cluster configuration'); axis off; grid off;
+    title(sprintf('%s current cluster configuration', sides{s})); axis off; grid off;
     disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ' - Set spatial clusters...Ok']);
     hold off;
     
