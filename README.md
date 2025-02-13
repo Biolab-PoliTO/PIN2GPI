@@ -2,64 +2,64 @@
 
 <p align="center">
 
+<img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/docs/pressure_insole_data.jpg" width="75"/></p>
 
-Accurate detection of foot-floor contact during gait analysis is essential for estimating spatio-temporal gait parameters. Variability in the sequence of gait phases is also a key factor in assessing risk of falls among elderly and pathological subjects. This repository introduces ```PI2GPI```, an approach designed for the automatic classification of gait phases based on pressure insoles (PI) signals.
+Accurate detection of foot-floor contact sequences during walking is a fundamental requirement for accurately estimating spatio-temporal gait parameters, which are widely used in gait analysis for clinical, rehabilitation, and research purposes. Variability in gait phase sequences is particularly important in assessing the risk of falls, especially among elderly individuals and those with pathological gait patterns. These variations may indicate underlying conditions such as neurological disorders, musculoskeletal impairments, or frailty, impacting mobility and increasing the likelihood of falls.<br>
 
-While existing algorithms focus on stance and swing parameters only, there is still a lack of methods to extract the sub-phases of stance (heel contact, flat-foot contact, and push-off), specifically from PI signals. The analysys of these gait phases helps reveal hidden issues in abnormal walking patterns that can make frail patients more likely to fall. 
+To address these challenges, this repository introduces '''PI2GPI''', an open-source toolbox designed for the automatic identification and classification of gait subphases using data collected from Pressure Insoles (PIs). This innovative approach leverages the temporal and spatial information provided by PIs to accurately identify both the principal gait subphases (i.e., stance and swing) and the finer sub-phases of stance (i.e., heel contact, flat-foot contact, and push-off) [1].<br>
 
-```PI2GPI``` is a tool for the classification of gait phases from pressure insole data, applicable both in structured laboratory tests and in unsupervised settings during free daily living activities.
+While many existing algorithms for gait analysis focus solely on differentiating between the stance and swing phases, they often fail to capture the sub-phases within the stance phase. These sub-phases are crucial for a comprehensive understanding of gait mechanics, as they provide deeper insights into atypical walking patterns. For example, deviations from the typical sequence of heel contact, flat-foot contact, push-off, and swing are common in individuals with gait impairments and may serve as an early indicator of mobility issues or fall risk [1],[2],[3].<br>
+
+'''PI2GPI''' is specifically designed to bridge this gap by offering a robust and accurate solution for identifying and classifying gait cycles from PI data. It is versatile and can be used across a wide range of applications, from controlled laboratory environments to unsupervised real-world settings such as free daily living activities. This flexibility makes it an invaluable tool for clinicians, researchers, and healthcare providers seeking to monitor and analyze gait in both structured and dynamic conditions. Moreover, '''PI2GPI''' can be flexibly modified at need to comply with the necessities of the user.<br>
+
+By enabling the detection of subtle abnormalities in gait phase sequences, '''PI2GPI''' helps uncover unique insights into an individual’s walking patterns, paving the way for more effective interventions, personalized treatment plans, and fall prevention strategies. Its open-source nature ensures accessibility for the research community and promotes further development and innovation in gait analysis.<br>
 
 
 ## What the ```PI2GPI``` algorithm does:
-1.	Load the data file (".mat");
-2.	Detect the gait subphases from anatomic clustering of PI channels;
-3.	Display results in 'csv' format.
+1.	Load ''*.mat'' file containing the normalized PI data
+2.	Define anatomical clusters and pre-process PI data 
+3.	Identify gait subphases based on the activation status of each cluster
+4.	Graphically represent results 
+5. 	Export results in ''*.csv'' format
 
-## Files description
+
+## Files description:
 The following files are provided within the GitHub repository:
-- PI2GPI: main function that guides you through all the main steps of Gait Phases detection;
-- PI.mat: .mat file containing normalized pressure insoles data from a representative healthy adult during aa 2.5-hour recording segment of daily free activities.
-- HFPS_extraction: function that contains the detection of gait phases from clustering of PI channels according to the anatomic contact points on the foot. It consists of:</p>
+- ''PI2GPI.m'': MATLAB algorithm that guides you throughout all the main steps of gait phases identification
+- ''data.mat'': MATLAB file containing normalized pressure insoles data from a representative healthy adult during simulated daily activities.
 </p>
-  a. Three clusters selection: arrange the sixteen PI channels in three clusters according to three different anatomical points on the foot: Heel (blue), 5th metatarsal head (green), 1st metatarsal head (red). </p>
-  Prompt the user to confirm or modify in the command window the default sampling frequency (100 Hz), and the channels distribution for each cluster if data contains a different number of channels or follows a different channels distribution from the foot plot </p>
-<img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/PI_clusters.jpg" width="75"/> </p>
-  b. Pre-processing and Activation Windows detection for each cluster between the maximum and minima peaks: sum PI signals within the same cluster and then normalize them respect to the channels number. Smooth the cumulative signals using an 11-sample moving average filter and compute their first derivative. Finally, apply an additional moving average filter with a 5-sample span on the resulting signals. </p>
-For each cluster, the activation windows were identified using the derivative signal. Candidate start times and end times were determined by detecting maxima and minima peaks exceeding a height threshold of 0.01. Since peaks in the derivative signal correspond to the points of maximum rate of pressure change in the cumulative signals of each cluster, an activation window was defined as the time interval between the current maximum and the highest amplitude minimum before the subsequent maximum. In cases where two consecutive maxima occurred without an intermediate minimum, the maximum with the greater amplitude was selected as the activation point and the next occurring minimum was used as the deactivation point </p>
-  c. Gait Phases Identification (GPI): define the correspondence between the combination of 'active' or 'not active' clusters and specific gait phases; </p>
-      (1)	'H' = 'Heel Contact': only the heel cluster is active;</p>
-      (2)	'F' = 'Flat Foot Contact': the heel cluster is active, and at least one cluster under the forefoot is also active;</p>
-      (3)	'P' = 'Propulsion': the heel cluster is inactive, while at least one forefoot cluster remains active;</p>
-      (4) 'S' = 'Swing': all clusters are inactive</p>
-  d. Save results: The labeled output signals are saved in CSV format with two columns: Left and Right, respectively.
+A detailed description of all the '''PI2GPI''' steps is available within the ''PI2GPI.m'' algorithm.
+
+## How to prepare your data:
+To use this analysis framework, your data must be in ''.mat'' format. <br>
+**Example Data**<br>
+The provided example dataset has been extracted and reorganized from the open database made available by the Mobilise-D consortium [4].<br>
+**Data Structure**<br>
+Your ''.mat'' file should contain a structure with pressure insole data, normalized to the range [0, 1], and organized into two fields:
+1.	''LeftFoot'': an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the left foot
+2.	''RightFoot'': an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the right foot
+For a representative example of the expected input format, refer to the ''data.mat'' file.<br>
 
 
-## How to prepare your data
-Data must be in .mat format to fit the analysis framework. Data example was extracted and reorganized from the open database made available by the Mobilise-D consortium [1].  What you need (see also PI.mat file) is a structure containing normalized pressure insoles data in the range [0 1], organized in two fields: </p> 
-- LeftFoot: N-by-M matrix, where N represents the time-samples and M represents the number of channels acquired from left side;</p>
-- RighFoot: N-by-M matrix, where N represents the time-samples and M represents the number of channels acquired from right side. </p>
+## References
+[1] Agostini, V., Balestra, G., & Knaflitz, M. (2014). Segmentation and Classification of Gait Cycles. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 22 (5)https://doi.10.1109/TNSRE.2013.2291907
+[2] Ghislieri, M., Agostini, V., Rizzi, L., Fronda, C., Knaflitz, M., & Lanotte, M. (2024). Foot–Floor Contact Sequences: A Metric for Gait Assessment in Parkinson’s Disease after Deep Brain Stimulation. Sensors, 24(20), 6593. https://doi.org/10.3390/s24206593
+[3] Ghislieri, M., Agostini, V., Rizzi, L., Knaflitz, M., & Lanotte, M. (2021). Atypical Gait Cycles in Parkinson’s Disease. Sensors, 21(15), 5079. https://doi.org/10.3390/s21155079
+[4] Küderle, A. (2024). Mobilise-D Technical Validation Study (TVS) dataset (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13899386
 
 
-## How to contribute to ```PI2GPI```
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+##  How to contribute to ```PI2GPI```
+Contributions are the heart of the open-source community, making it a fantastic space for learning, inspiration, and innovation. While we've done our best, our code may contain inaccuracies or might not fully meet your needs. If you come across any issues—or have ideas for improvements—we encourage you to contribute! Follow the instructions below to suggest edits or enhancements. Every contribution is **greatly appreciated**!<br>
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-1. Fork the Project
-2. Create your Feature Branch
-3. Commit your Changes
-4. Push to the Branch
-5. Open a Pull Request
+Bugs are tracked as **GitHub issues**. Whenever you report an issue, please make sure to:<br>
+1.	Use a concise and descriptive title
+2.	Report your MATLAB version
+3.	Report whether the code ran successfully on the test data available within the repository.
 
 
-## Disclaimer
-This algorithm is provided as-is, and unfortunately, there are no guarantees that it fits your purposes or that it is bug-free.
+## Contacts
+Nicolas Leo, Scholarship holder - [BIOLAB@Polito](https://biolab.polito.it)<br>
+[@NicolasLeo](https://www.linkedin.com/in/nicolas-leo-732aa927b/) - nicolas.leo@polito.it
 
-
-## Reference
-[1] A. Küderle, “Mobilise-D Technical Validation Study (TVS) dataset [Data set],” Zenodo. [Online]. Available: http://doi.org/10.5281/zenodo.13899385
-
-
-## Contact
-Nicolas Leo, Fellow Research
-nicolas.leo@polito.it
+Marco Ghislieri, Ph.D. - [BIOLAB@Polito](https://biolab.polito.it/people/marco-ghislieri/) <br>
+[@MarcoGhislieri](https://twitter.com/MarcoGhislieri) - marco.ghislieri@polito.it
