@@ -37,14 +37,14 @@ The provided example dataset has been extracted and reorganized from the open da
 **Data Structure**<br>
 Your ```*.mat``` file should contain a structure with pressure insole data, normalized to the range [0, 1], and organized into two fields:
 1.	```LeftFoot```: an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the left foot
-2.	```RightFoot```: an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the right foot
+2.	```RightFoot```: an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the right foot <br>
 For a representative example of the expected input format, refer to the ```data.mat``` file.<br>
 
 
 ## References
-[1] Agostini, V., Balestra, G., & Knaflitz, M. (2014). Segmentation and Classification of Gait Cycles. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 22 (5)https://doi.10.1109/TNSRE.2013.2291907
-[2] Ghislieri, M., Agostini, V., Rizzi, L., Fronda, C., Knaflitz, M., & Lanotte, M. (2024). Foot–Floor Contact Sequences: A Metric for Gait Assessment in Parkinson’s Disease after Deep Brain Stimulation. Sensors, 24(20), 6593. https://doi.org/10.3390/s24206593
-[3] Ghislieri, M., Agostini, V., Rizzi, L., Knaflitz, M., & Lanotte, M. (2021). Atypical Gait Cycles in Parkinson’s Disease. Sensors, 21(15), 5079. https://doi.org/10.3390/s21155079
+[1] Agostini, V., Balestra, G., & Knaflitz, M. (2014). Segmentation and Classification of Gait Cycles. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 22 (5)https://doi.10.1109/TNSRE.2013.2291907 <br>
+[2] Ghislieri, M., Agostini, V., Rizzi, L., Fronda, C., Knaflitz, M., & Lanotte, M. (2024). Foot–Floor Contact Sequences: A Metric for Gait Assessment in Parkinson’s Disease after Deep Brain Stimulation. Sensors, 24(20), 6593. https://doi.org/10.3390/s24206593 <br>
+[3] Ghislieri, M., Agostini, V., Rizzi, L., Knaflitz, M., & Lanotte, M. (2021). Atypical Gait Cycles in Parkinson’s Disease. Sensors, 21(15), 5079. https://doi.org/10.3390/s2115507 <br>
 [4] Küderle, A. (2024). Mobilise-D Technical Validation Study (TVS) dataset (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13899386
 
 
