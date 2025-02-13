@@ -28,7 +28,7 @@ The following files are provided within the GitHub repository:
 - ```PI2PGI.m```: MATLAB algorithm that guides you throughout all the main steps of gait phases identification
 - ```data.mat```: MATLAB file containing normalized pressure insoles data from a representative healthy adult during simulated daily activities.
 </p>
-A detailed description of all the ```PI2PGI``` steps is available within the ```PI2PGI.m``` algorithm.
+A detailed description of all the toolbox steps is available within the MATLAB algorithm.
 
 ## How to prepare your data:
 To use this analysis framework, your data must be in ```*.mat``` format. <br>
