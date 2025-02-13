@@ -28,12 +28,12 @@ The following files are provided within the GitHub repository:
 - ```PI2PGI.m```: MATLAB algorithm that guides you throughout all the main steps of gait phases identification
 - ```data.mat```: MATLAB file containing normalized pressure insoles data from a representative healthy adult during simulated daily activities.
 </p>
-A detailed description of all the ```PI2GPI``` steps is available within the ```PI2GPI.m``` algorithm.
+A detailed description of all the ```PI2PGI``` steps is available within the ```PI2PGI.m``` algorithm.
 
 ## How to prepare your data:
 To use this analysis framework, your data must be in ```*.mat``` format. <br>
 **Example Data**<br>
-The provided example dataset has been extracted and reorganized from the open database made available by the Mobilise-D consortium [4].<br>
+The provided example dataset has been extracted and reorganized from the open database made available by the **Mobilise-D consortium** [4].<br>
 **Data Structure**<br>
 Your ```*.mat``` file should contain a structure with pressure insole data, normalized to the range [0, 1], and organized into two fields:
 1.	```LeftFoot```: an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the left foot
