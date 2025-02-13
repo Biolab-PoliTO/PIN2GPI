@@ -2,7 +2,7 @@
 
 <p align="center">
 
-<img  src="https://github.com/Biolab-PoliTO/PI-GaPhI/blob/main/pressure_insole_data.jpg" width="75"/></p>
+<img  src="https://github.com/Biolab-PoliTO/PI2GPI/blob/main/pressure_insole_data.jpg" width="75"/></p>
 
 Accurate detection of foot-floor contact sequences during walking is a fundamental requirement for accurately estimating spatio-temporal gait parameters, which are widely used in gait analysis for clinical, rehabilitation, and research purposes. Variability in gait phase sequences is particularly important in assessing the risk of falls, especially among elderly individuals and those with pathological gait patterns. These variations may indicate underlying conditions such as neurological disorders, musculoskeletal impairments, or frailty, impacting mobility and increasing the likelihood of falls.<br>
 
