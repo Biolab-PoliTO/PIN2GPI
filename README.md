@@ -1,4 +1,4 @@
-# PI2GPI: from Pressure Insoles to the Gait Phases Identification
+# ```PI2GPI```: from Pressure Insoles to the Gait Phases Identification
 
 <p align="center">
 
@@ -20,25 +20,25 @@ By enabling the detection of subtle abnormalities in gait phase sequences, ```PI
 2.	Define anatomical clusters and pre-process PI data 
 3.	Identify gait subphases based on the activation status of each cluster
 4.	Graphically represent results 
-5. 	Export results in ''*.csv'' format
+5. 	Export results in ```*.csv``` format
 
 
 ## Files description:
 The following files are provided within the GitHub repository:
-- ''PI2GPI.m'': MATLAB algorithm that guides you throughout all the main steps of gait phases identification
-- ''data.mat'': MATLAB file containing normalized pressure insoles data from a representative healthy adult during simulated daily activities.
+- ```PI2PGI.m```: MATLAB algorithm that guides you throughout all the main steps of gait phases identification
+- ```data.mat```: MATLAB file containing normalized pressure insoles data from a representative healthy adult during simulated daily activities.
 </p>
-A detailed description of all the '''PI2GPI''' steps is available within the ''PI2GPI.m'' algorithm.
+A detailed description of all the ```PI2GPI``` steps is available within the ```PI2GPI.m``` algorithm.
 
 ## How to prepare your data:
-To use this analysis framework, your data must be in ''.mat'' format. <br>
+To use this analysis framework, your data must be in ```*.mat``` format. <br>
 **Example Data**<br>
 The provided example dataset has been extracted and reorganized from the open database made available by the Mobilise-D consortium [4].<br>
 **Data Structure**<br>
-Your ''.mat'' file should contain a structure with pressure insole data, normalized to the range [0, 1], and organized into two fields:
-1.	''LeftFoot'': an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the left foot
-2.	''RightFoot'': an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the right foot
-For a representative example of the expected input format, refer to the ''data.mat'' file.<br>
+Your ```*.mat``` file should contain a structure with pressure insole data, normalized to the range [0, 1], and organized into two fields:
+1.	```LeftFoot```: an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the left foot
+2.	```RightFoot```: an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the right foot
+For a representative example of the expected input format, refer to the ```data.mat``` file.<br>
 
 
 ## References
