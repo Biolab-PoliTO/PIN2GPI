@@ -88,8 +88,12 @@ for s = 1:length(sides) % Loop over sides
             'filled', 'DisplayName', labels{i});
     end
     
-    text(x-0.2, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, 'FontWeight', ...
-        'bold', 'Color', 'w');
+    offset = 0.2 * strcmp(sides{s}, 'LeftFoot') - 0.2 * strcmp(sides{s}, 'RightFoot');
+    text(x + offset, y, cellstr(num2str((1:length(x))')), 'FontSize', 10, ...
+        'FontWeight', 'bold', 'Color', 'w');
+    if strcmp(sides{s}, 'LeftFoot')
+        set(gca, 'XDir', 'reverse');
+    end
     
     xlim([-6 10]); ylim([-1 16]);
     legend([{''}, labels(:)'], 'Location', 'Best');
