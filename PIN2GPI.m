@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%    PI2GPI: from the Pressure Insoles to the Gait Phases Identification  %
+%    PIN2GPI: from the Pressure Insoles to the Gait Phases Identification  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % MATLAB code to offline extract gait cycle sub-phases (heel contact, flat-
@@ -14,7 +14,7 @@
 %            Valentina AGOSTINI (valentina.agostini@polito.it)
 %            PolitoBIOMed Lab and BIOLAB, Politecnico di Torino, Turin, Italy
 %
-% File: Pi2GPI.m
+% File: PIN2GPI.m
 % Date: 07-02-2025 (Plot and comments)
 %       06-02-2025 (Data export)
 %       05-02-2025 (Code fixing and optimization)
@@ -257,7 +257,7 @@ results = table((1:num_samples)', output.LeftFoot(:), output.RightFoot(:), ...
     'VariableNames', {'Sample','Left', 'Right'});
 
 % Save the *.csv file
-writetable(results, 'PI2GPI_result.csv');
+writetable(results, 'PIN2GPI_result.csv');
 
 disp([char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss')) ...
     ' - Saving results to *.csv file...Ok']);
