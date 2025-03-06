@@ -1,21 +1,21 @@
-# ```PI2GPI```: from Pressure Insoles to the Gait Phases Identification
+# ```PIN2GPI```: from Pressure INsoles to the Gait Phases Identification
 
 <p align="center">
 
-<img  src="https://github.com/Biolab-PoliTO/PI2GPI/blob/97f5aeefb8b41c8eab0977a60af527776efaa14d/pressure_insole_data.png" style="width:100%; height:auto;"/></p>
+<img  src="https://github.com/Biolab-PoliTO/PIN2GPI/blob/97f5aeefb8b41c8eab0977a60af527776efaa14d/pressure_insole_data.png" style="width:100%; height:auto;"/></p>
 
 Accurate detection of foot-floor contact sequences during walking is a fundamental requirement for accurately estimating spatio-temporal gait parameters, which are widely used in gait analysis for clinical, rehabilitation, and research purposes. Variability in gait phase sequences is particularly important in assessing the risk of falls, especially among elderly individuals and those with pathological gait patterns. These variations may indicate underlying conditions such as neurological disorders, musculoskeletal impairments, or frailty, impacting mobility and increasing the likelihood of falls.<br>
 
-To address these challenges, this repository introduces ```PI2GPI```, an open-source toolbox designed for the automatic identification and classification of gait subphases using data collected from Pressure Insoles (PIs). This innovative approach leverages the temporal and spatial information provided by PIs to accurately identify both the principal gait subphases (i.e., stance and swing) and the finer sub-phases of stance (i.e., heel contact, flat-foot contact, and push-off) [1].<br>
+To address these challenges, this repository introduces ```PIN2GPI```, an open-source toolbox designed for the automatic identification and classification of gait subphases using data collected from Pressure Insoles (PIs). This innovative approach leverages the temporal and spatial information provided by PIs to accurately identify both the principal gait subphases (i.e., stance and swing) and the finer sub-phases of stance (i.e., heel contact, flat-foot contact, and push-off) [1].<br>
 
 While many existing algorithms for gait analysis focus solely on differentiating between the stance and swing phases, they often fail to capture the sub-phases within the stance phase. These sub-phases are crucial for a comprehensive understanding of gait mechanics, as they provide deeper insights into atypical walking patterns. For example, deviations from the typical sequence of heel contact, flat-foot contact, push-off, and swing are common in individuals with gait impairments and may serve as an early indicator of mobility issues or fall risk [1],[2],[3].<br>
 
-```PI2GPI``` is specifically designed to bridge this gap by offering a robust and accurate solution for identifying and classifying gait cycles from PI data. It is versatile and can be used across a wide range of applications, from controlled laboratory environments to unsupervised real-world settings such as free daily living activities. This flexibility makes it an invaluable tool for clinicians, researchers, and healthcare providers seeking to monitor and analyze gait in both structured and dynamic conditions. Moreover, ```PI2GPI``` can be flexibly modified at need to comply with the necessities of the user.<br>
+```PIN2GPI``` is specifically designed to bridge this gap by offering a robust and accurate solution for identifying and classifying gait cycles from PI data. It is versatile and can be used across a wide range of applications, from controlled laboratory environments to unsupervised real-world settings such as free daily living activities. This flexibility makes it an invaluable tool for clinicians, researchers, and healthcare providers seeking to monitor and analyze gait in both structured and dynamic conditions. Moreover, ```PIN2GPI``` can be flexibly modified at need to comply with the necessities of the user.<br>
 
-By enabling the detection of subtle abnormalities in gait phase sequences, ```PI2GPI``` helps uncover unique insights into an individual’s walking patterns, paving the way for more effective interventions, personalized treatment plans, and fall prevention strategies. Its open-source nature ensures accessibility for the research community and promotes further development and innovation in gait analysis.<br>
+By enabling the detection of subtle abnormalities in gait phase sequences, ```PIN2GPI``` helps uncover unique insights into an individual’s walking patterns, paving the way for more effective interventions, personalized treatment plans, and fall prevention strategies. Its open-source nature ensures accessibility for the research community and promotes further development and innovation in gait analysis.<br>
 
 
-## What the ```PI2GPI``` algorithm does:
+## What the ```PIN2GPI``` algorithm does:
 1.	Load ``*.mat`` file containing the normalized PI data
 2.	Define anatomical clusters and pre-process PI data 
 3.	Identify gait subphases based on the activation status of each cluster
@@ -48,7 +48,7 @@ For a representative example of the expected input format, refer to the ```data.
 [4] Küderle, A. (2024). Mobilise-D Technical Validation Study (TVS) dataset (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13899386
 
 
-##  How to contribute to ```PI2GPI```
+##  How to contribute to ```PIN2GPI```
 Contributions are the heart of the open-source community, making it a fantastic space for learning, inspiration, and innovation. While we've done our best, our code may contain inaccuracies or might not fully meet your needs. If you come across any issues—or have ideas for improvements—we encourage you to contribute! Follow the instructions below to suggest edits or enhancements. Every contribution is **greatly appreciated**!<br>
 
 Bugs are tracked as **GitHub issues**. Whenever you report an issue, please make sure to:<br>
