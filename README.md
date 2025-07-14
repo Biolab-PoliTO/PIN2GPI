@@ -1,14 +1,23 @@
 # ```PIN2GPI```: from Pressure INsoles to the Gait Phases Identification
 
 <p align="center">
+July, 2025
 
+by Marco Ghislieri and Nicolas Leo
+
+The PIN2GPI for MATLAB is an open source software to extract Gait Phases from Pressure Insoles; 
+
+If you use ```PIN2GPI``` algorithm in your work, please cite the following article:
+- Ghislieri, M., Leo, N., Caruso, M. et al. A toolbox for the identification of foot-floor contact sequences to analyze atypical gait cycles in a real-life scenario: application on patients after proximal femur fracture and healthy elderly. J NeuroEngineering Rehabil 22, 161 (2025) (https://doi.org/10.1186/s12984-025-01683-z)
+
+## Introduction:
 <img  src="https://github.com/Biolab-PoliTO/PI2GPI/blob/97f5aeefb8b41c8eab0977a60af527776efaa14d/pressure_insole_data.png" style="width:100%; height:auto;"/></p>
 
-Accurate detection of foot-floor contact sequences during walking is a fundamental requirement for accurately estimating spatio-temporal gait parameters, which are widely used in gait analysis for clinical, rehabilitation, and research purposes. Variability in gait phase sequences is particularly important in assessing the risk of falls, especially among elderly individuals and those with pathological gait patterns. These variations may indicate underlying conditions such as neurological disorders, musculoskeletal impairments, or frailty, impacting mobility and increasing the likelihood of falls.<br>
+Accurate detection of foot-floor contact sequences during walking is a fundamental requirement for accurately estimating spatio-temporal gait parameters, which are widely used in gait analysis for clinical, rehabilitation, and research purposes. Variability in gait phase sequences is particularly important in assessing the risk of falls, especially among elderly individuals and those with pathological gait patterns. These variations may indicate underlying conditions such as neurological disorders, musculoskeletal impairments, or frailty, impacting mobility and increasing the likelihood of falls [1].<br>
 
-To address these challenges, this repository introduces ```PIN2GPI```, an open-source toolbox designed for the automatic identification and classification of gait subphases using data collected from Pressure Insoles (PIs). This innovative approach leverages the temporal and spatial information provided by PIs to accurately identify both the principal gait subphases (i.e., stance and swing) and the finer sub-phases of stance (i.e., heel contact, flat-foot contact, and push-off) [1].<br>
+To address these challenges, this repository introduces ```PIN2GPI```, an open-source toolbox designed for the automatic identification and classification of gait subphases using data collected from Pressure Insoles (PIs). This innovative approach leverages the temporal and spatial information provided by PIs to accurately identify both the principal gait subphases (i.e., stance and swing) and the finer sub-phases of stance (i.e., heel contact, flat-foot contact, and push-off) [2].<br>
 
-While many existing algorithms for gait analysis focus solely on differentiating between the stance and swing phases, they often fail to capture the sub-phases within the stance phase. These sub-phases are crucial for a comprehensive understanding of gait mechanics, as they provide deeper insights into atypical walking patterns. For example, deviations from the typical sequence of heel contact, flat-foot contact, push-off, and swing are common in individuals with gait impairments and may serve as an early indicator of mobility issues or fall risk [1],[2],[3].<br>
+While many existing algorithms for gait analysis focus solely on differentiating between the stance and swing phases, they often fail to capture the sub-phases within the stance phase. These sub-phases are crucial for a comprehensive understanding of gait mechanics, as they provide deeper insights into atypical walking patterns. For example, deviations from the typical sequence of heel contact, flat-foot contact, push-off, and swing are common in individuals with gait impairments and may serve as an early indicator of mobility issues or fall risk [1],[2],[3],[4].<br>
 
 ```PIN2GPI``` is specifically designed to bridge this gap by offering a robust and accurate solution for identifying and classifying gait cycles from PI data. It is versatile and can be used across a wide range of applications, from controlled laboratory environments to unsupervised real-world settings such as free daily living activities. This flexibility makes it an invaluable tool for clinicians, researchers, and healthcare providers seeking to monitor and analyze gait in both structured and dynamic conditions. Moreover, ```PIN2GPI``` can be flexibly modified at need to comply with the necessities of the user.<br>
 
@@ -42,10 +51,12 @@ For a representative example of the expected input format, refer to the ```data.
 
 
 ## References
-[1] Agostini, V., Balestra, G., & Knaflitz, M. (2014). Segmentation and Classification of Gait Cycles. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 22 (5)https://doi.10.1109/TNSRE.2013.2291907 <br>
-[2] Ghislieri, M., Agostini, V., Rizzi, L., Fronda, C., Knaflitz, M., & Lanotte, M. (2024). Foot–Floor Contact Sequences: A Metric for Gait Assessment in Parkinson’s Disease after Deep Brain Stimulation. Sensors, 24(20), 6593. https://doi.org/10.3390/s24206593 <br>
-[3] Ghislieri, M., Agostini, V., Rizzi, L., Knaflitz, M., & Lanotte, M. (2021). Atypical Gait Cycles in Parkinson’s Disease. Sensors, 21(15), 5079. https://doi.org/10.3390/s2115507 <br>
-[4] Küderle, A. (2024). Mobilise-D Technical Validation Study (TVS) dataset (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13899386
+
+[1] Ghislieri, M., Leo, N., Caruso, M. et al. (2025) A toolbox for the identification of foot-floor contact sequences to analyze atypical gait cycles in a real-life scenario: application on patients after proximal femur fracture and healthy elderly. J NeuroEngineering Rehabil 22, 161. https://doi.org/10.1186/s12984-025-01683-z <br>
+[2] Agostini, V., Balestra, G., & Knaflitz, M. (2014). Segmentation and Classification of Gait Cycles. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 22 (5)https://doi.10.1109/TNSRE.2013.2291907 <br>
+[3] Ghislieri, M., Agostini, V., Rizzi, L., Fronda, C., Knaflitz, M., & Lanotte, M. (2024). Foot–Floor Contact Sequences: A Metric for Gait Assessment in Parkinson’s Disease after Deep Brain Stimulation. Sensors, 24(20), 6593. https://doi.org/10.3390/s24206593 <br>
+[4] Ghislieri, M., Agostini, V., Rizzi, L., Knaflitz, M., & Lanotte, M. (2021). Atypical Gait Cycles in Parkinson’s Disease. Sensors, 21(15), 5079. https://doi.org/10.3390/s2115507 <br>
+[5] Küderle, A. (2024). Mobilise-D Technical Validation Study (TVS) dataset (1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13899386
 
 
 ##  How to contribute to ```PIN2GPI```
