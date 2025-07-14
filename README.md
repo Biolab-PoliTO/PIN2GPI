@@ -1,8 +1,6 @@
 # ```PIN2GPI```: from Pressure INsoles to the Gait Phases Identification
 
-July, 2025
-
-by Marco Ghislieri and Nicolas Leo
+by Marco Ghislieri and Nicolas Leo (July, 2025)
 
 The PIN2GPI for MATLAB is an open source software to extract Gait Phases from Pressure Insoles; 
 
