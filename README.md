@@ -1,6 +1,5 @@
 # ```PIN2GPI```: from Pressure INsoles to the Gait Phases Identification
 
-<p align="center">
 July, 2025
 
 by Marco Ghislieri and Nicolas Leo
@@ -11,6 +10,7 @@ If you use ```PIN2GPI``` algorithm in your work, please cite the following artic
 - Ghislieri, M., Leo, N., Caruso, M. et al. A toolbox for the identification of foot-floor contact sequences to analyze atypical gait cycles in a real-life scenario: application on patients after proximal femur fracture and healthy elderly. J NeuroEngineering Rehabil 22, 161 (2025) (https://doi.org/10.1186/s12984-025-01683-z)
 
 ## Introduction:
+<p align="center">
 <img  src="https://github.com/Biolab-PoliTO/PI2GPI/blob/97f5aeefb8b41c8eab0977a60af527776efaa14d/pressure_insole_data.png" style="width:100%; height:auto;"/></p>
 
 Accurate detection of foot-floor contact sequences during walking is a fundamental requirement for accurately estimating spatio-temporal gait parameters, which are widely used in gait analysis for clinical, rehabilitation, and research purposes. Variability in gait phase sequences is particularly important in assessing the risk of falls, especially among elderly individuals and those with pathological gait patterns. These variations may indicate underlying conditions such as neurological disorders, musculoskeletal impairments, or frailty, impacting mobility and increasing the likelihood of falls [1].<br>
