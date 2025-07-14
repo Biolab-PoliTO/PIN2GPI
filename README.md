@@ -56,8 +56,9 @@ Bugs are tracked as **GitHub issues**. Whenever you report an issue, please make
 
 
 ## Contacts
+**Marco Ghislieri**, Ph.D. - [BIOLAB@Polito](https://biolab.polito.it/people/marco-ghislieri/) <br>
+[@MarcoGhislieri](https://twitter.com/MarcoGhislieri) - marco.ghislieri@polito.it
 **Nicolas Leo**, Scholarship holder - [BIOLAB@Polito](https://biolab.polito.it)<br>
 [@NicolasLeo](https://www.linkedin.com/in/nicolas-leo-732aa927b/) - nicolas.leo@polito.it
 
-**Marco Ghislieri**, Ph.D. - [BIOLAB@Polito](https://biolab.polito.it/people/marco-ghislieri/) <br>
-[@MarcoGhislieri](https://twitter.com/MarcoGhislieri) - marco.ghislieri@polito.it
+
