@@ -30,7 +30,7 @@ A detailed description of all the toolbox steps is available within the MATLAB a
 ## How to prepare your data:
 To use this analysis framework, your data must be in ```*.mat``` format. <br>
 **Example Data**<br>
-The provided example dataset has been extracted and reorganized from the open database made available by the **Mobilise-D consortium** [2].<br>
+The provided example dataset has been extracted and reorganized from the open database made available by the Mobilise-D consortium [2].<br>
 **Data Structure**<br>
 Your ```*.mat``` file should contain a structure with pressure insole data, normalized to the range [0, 1], and organized into two fields:
 1.	```LeftFoot```: an N × M matrix, where N = Number of time samples and M = Number of channels acquired from the left foot
