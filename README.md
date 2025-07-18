@@ -42,7 +42,7 @@ If you use ```PIN2GPI``` algorithm in your work, please cite the following artic
 [1] Ghislieri, M., Leo, N., Caruso, M. et al. (2025) A toolbox for the identification of foot-floor contact sequences to analyze atypical gait cycles in a real-life scenario: application on patients after proximal femur fracture and healthy elderly. J NeuroEngineering Rehabil 22, 161 (https://doi.org/10.1186/s12984-025-01683-z)
 
 ## Open-Access Data
-If interested in freely available sEMG signals, please consider downloading the following dataset:<br>
+If interested in freely available PI signals, please consider downloading the following dataset:<br>
 [2] Küderle, A. (2024). Mobilise-D Technical Validation Study (TVS) dataset (1.0.0) [Data set]. Zenodo.(https://doi.org/10.5281/zenodo.13899386)
 
 
